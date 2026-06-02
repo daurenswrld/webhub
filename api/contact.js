@@ -23,8 +23,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Пожалуйста, заполните все обязательные поля.' });
   }
 
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  const botToken = process.env.TELEGRAM_BOT_TOKEN || process.env.VITE_TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID || process.env.VITE_TELEGRAM_CHAT_ID;
 
   if (!botToken || !chatId) {
     console.error('SERVER ERROR: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is not configured');
