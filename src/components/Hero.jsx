@@ -84,7 +84,7 @@ export default function Hero() {
           </p>
           <div className="hero-actions">
             <a href="#contact" className="btn btn-primary">Оставить заявку</a>
-            <a href="#talent-board" className="btn btn-secondary">Смотреть проекты</a>
+            <a href="#services" className="btn btn-secondary">Наши услуги</a>
           </div>
         </div>
 

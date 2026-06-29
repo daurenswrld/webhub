@@ -22,7 +22,6 @@ export default function Footer() {
             <div className="footer-links-col">
               <span className="footer-links-title">Ресурсы</span>
               <a href="#services">Услуги студии</a>
-              <a href="#talent-board">Биржа талантов</a>
               <a href="#contact">Форма связи</a>
             </div>
             

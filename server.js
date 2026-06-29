@@ -28,12 +28,12 @@ app.post('/api/contact', async (req, res) => {
 
   // Format the Telegram message
   const serviceText = service || 'Не указана';
-  const textMsg = `📩 <b>Новая заявка на WebHub</b>\n\n` +
-    `👤 <b>Имя:</b> ${name.trim()}\n` +
-    `📧 <b>Email:</b> ${email.trim()}\n` +
-    `🏢 <b>Компания:</b> ${company ? company.trim() : 'Не указана'}\n` +
-    `🛠 <b>Услуга:</b> ${serviceText}\n\n` +
-    `💬 <b>Сообщение:</b>\n${message.trim()}`;
+  const textMsg = `<b>[NEW LEAD // WEBHUB]</b>\n\n` +
+    `<b>[NAME]:</b> ${name.trim()}\n` +
+    `<b>[EMAIL]:</b> ${email.trim()}\n` +
+    `<b>[COMPANY]:</b> ${company ? company.trim() : 'Не указана'}\n` +
+    `<b>[SERVICE]:</b> ${serviceText}\n\n` +
+    `<b>[MESSAGE]:</b>\n${message.trim()}`;
 
   try {
     const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
