@@ -852,6 +852,11 @@
   align-items: stretch;
 }
 
+.git-activity-layout > div {
+  min-width: 0;
+  overflow: hidden;
+}
+
 .git-panel-header {
   display: flex;
   justify-content: space-between;

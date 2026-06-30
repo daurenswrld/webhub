@@ -122,7 +122,7 @@ export default function GitActivity() {
             </div>
 
             {/* Heatmap Grid container */}
-            <div style={{ overflowX: 'auto', paddingBottom: '8px' }}>
+            <div style={{ overflowX: 'auto', paddingBottom: '8px', maxWidth: '100%', width: '100%' }}>
               <div style={{
                 display: 'grid',
                 gridTemplateRows: 'repeat(7, 10px)',
