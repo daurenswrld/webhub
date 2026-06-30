@@ -852,6 +852,57 @@
   align-items: stretch;
 }
 
+.git-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.git-badge {
+  font-size: 0.65rem;
+  background-color: rgba(57, 211, 83, 0.1);
+  color: var(--success);
+  border: 1px solid var(--success);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.git-panel-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 992px) {
+  .git-activity-layout {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .git-metrics-footer {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .git-panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .git-panel-legend {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
 /* Burger Menu Toggle button styling */
 .burger-btn {
   display: none;
@@ -893,10 +944,6 @@
 
 /* Responsive layout adjustments */
 @media (max-width: 768px) {
-  .git-activity-layout {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
   .status-badge {
     display: none !important;
   }
@@ -946,9 +993,5 @@
 @media (max-width: 480px) {
   .logo-wrapper span {
     display: none !important;
-  }
-  .git-metrics-footer {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
   }
 }

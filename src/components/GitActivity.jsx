@@ -106,9 +106,9 @@ export default function GitActivity() {
           }}>
             
             {/* Header info */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div className="git-panel-header">
               <div>
-                <h3 style={{ fontSize: '1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', margin: 0 }}>
                   <GitCommit size={16} style={{ color: 'var(--success)' }} />
                   График коммитов в ядро WebHub
                 </h3>
@@ -116,15 +116,7 @@ export default function GitActivity() {
                   4,912 коммитов за последние 12 месяцев
                 </span>
               </div>
-              <div style={{
-                fontSize: '0.65rem',
-                backgroundColor: 'rgba(57, 211, 83, 0.1)',
-                color: 'var(--success)',
-                border: '1px solid var(--success)',
-                padding: '2px 6px',
-                borderRadius: '3px',
-                fontFamily: 'var(--font-mono)'
-              }}>
+              <div className="git-badge">
                 ACTIVE COMMITTERS: 5
               </div>
             </div>
@@ -161,14 +153,7 @@ export default function GitActivity() {
             </div>
 
             {/* Legend / Tooltip */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: '12px',
-              fontSize: '0.65rem',
-              color: 'var(--text-secondary)'
-            }}>
+            <div className="git-panel-legend">
               <div>
                 {hoveredCell ? (
                   <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--success)', fontWeight: 'bold' }}>
