@@ -73,18 +73,18 @@ export default function Hero() {
         <div className="hero-content animate-fade-in">
           <div className="hero-tagline">
             <span style={{ display: 'inline-block', width: '6px', height: '6px', backgroundColor: 'var(--text-primary)', borderRadius: '50%' }}></span>
-            <span>SYSTEM // STAGE 01: DEVELOPMENT STUDIO</span>
+            <span>WEBHUB // DIGITAL PRODUCT STUDIO</span>
           </div>
           <h1 className="hero-title">
-            Инженерия <br />
-            высокого разрешения
+            От идеи до <br />
+            готового продукта
           </h1>
           <p className="hero-description">
-            Мы проектируем и разрабатываем надежные веб-приложения, распределенные системы и структурированные интерфейсы. Прямо сейчас мы работаем как закрытая студия разработки; следующий этап — запуск открытой экосистемы технологических проектов.
+            Разрабатываем сайты, веб-приложения и мобильные приложения, которые помогают вашему бизнесу расти, автоматизировать процессы и запускать новые возможности.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="btn btn-primary">Оставить заявку</a>
-            <a href="#services" className="btn btn-secondary">Наши услуги</a>
+            <a href="#contact" className="btn btn-primary">Связаться с нами</a>
+            <a href="#services" className="btn btn-secondary">Наши решения</a>
           </div>
         </div>
 

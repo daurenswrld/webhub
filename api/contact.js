@@ -17,10 +17,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { name, email, company, message, service } = req.body;
+  const { name, phone, email, company, message, service } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Пожалуйста, заполните все обязательные поля.' });
+  if (!name || !phone || !message) {
+    return res.status(400).json({ error: 'Пожалуйста, заполните обязательные поля: Имя, Номер и Сообщение.' });
   }
 
   const botToken = process.env.TELEGRAM_BOT_TOKEN || process.env.VITE_TELEGRAM_BOT_TOKEN;
@@ -35,7 +35,8 @@ export default async function handler(req, res) {
   const serviceText = service || 'Не указана';
   const textMsg = `📩 <b>Новая заявка на WebHub</b>\n\n` +
     `👤 <b>Имя:</b> ${name.trim()}\n` +
-    `📧 <b>Email:</b> ${email.trim()}\n` +
+    `📞 <b>Телефон:</b> ${phone.trim()}\n` +
+    `📧 <b>Email:</b> ${email ? email.trim() : 'Не указан'}\n` +
     `🏢 <b>Компания:</b> ${company ? company.trim() : 'Не указана'}\n` +
     `🛠 <b>Услуга:</b> ${serviceText}\n\n` +
     `💬 <b>Сообщение:</b>\n${message.trim()}`;

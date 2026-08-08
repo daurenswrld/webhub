@@ -70,12 +70,12 @@ export default function Ecosystem() {
         
         {/* Section Header */}
         <div className="section-header animate-fade-in">
-          <span className="mono-label">ИНЖЕНЕРНЫЕ СТАНДАРТЫ // СТЭК ТЕХНОЛОГИЙ</span>
+          <span className="mono-label">ИНЖЕНЕРНЫЕ СТАНДАРТЫ // НАШ ПОДХОД</span>
           <h2 className="section-subtitle" style={{ fontSize: '2.25rem', marginTop: '8px' }}>
-            Как мы создаем надежное ПО
+            Как мы создаем надежные цифровые продукты
           </h2>
-          <p style={{ maxWidth: '600px', fontSize: '0.95rem', marginTop: '8px' }}>
-            Мы придерживаемся строгих стандартов промышленной разработки, обеспечивая безопасность, масштабируемость и полное владение кодовой базой.
+          <p style={{ maxWidth: '650px', fontSize: '0.95rem', marginTop: '8px' }}>
+            Следуем современным инженерным практикам, чтобы проекты оставались безопасными, масштабируемыми и удобными для дальнейшего развития.
           </p>
         </div>
 

@@ -3,10 +3,11 @@ import { Send, AlertCircle } from "lucide-react";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [message, setMessage] = useState("");
-  const [selectedService, setSelectedService] = useState("development");
+  const [selectedService, setSelectedService] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
@@ -16,8 +17,8 @@ export default function ContactForm() {
   React.useEffect(() => {
     const handleConfigureProject = (e) => {
       const { service, messageText } = e.detail;
-      setSelectedService(service);
-      setMessage(messageText);
+      setSelectedService(service || "");
+      setMessage(messageText || "");
       const contactSection = document.getElementById("contact");
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: "smooth" });
@@ -49,15 +50,15 @@ export default function ContactForm() {
 
   const services = [
     { id: "development", label: "Разработка веб-приложений" },
-    { id: "architecture", label: "Проектирование систем" },
-    { id: "design", label: "UI/UX дизайн-системы" },
-    { id: "devops", label: "DevOps и масштабирование" },
+    { id: "mobile", label: "Мобильные приложения" },
+    { id: "architecture", label: "Проектирование систем (CRM/ERP)" },
+    { id: "devops", label: "DevOps и Поддержка" },
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setErrorMessage("Пожалуйста, заполните все обязательные поля.");
+    if (!name.trim() || !phone.trim() || !message.trim()) {
+      setErrorMessage("Пожалуйста, заполните все обязательные поля: Имя, Номер и Сообщение.");
       return;
     }
 
@@ -65,7 +66,7 @@ export default function ContactForm() {
     setErrorMessage("");
 
     const serviceLabel =
-      services.find((s) => s.id === selectedService)?.label || selectedService;
+      services.find((s) => s.id === selectedService)?.label || selectedService || "Не указана";
 
     // Try secure server-side backend routing
     try {
@@ -80,6 +81,7 @@ export default function ContactForm() {
         },
         body: JSON.stringify({
           name: name.trim(),
+          phone: phone.trim(),
           email: email.trim(),
           company: company.trim(),
           message: message.trim(),
@@ -92,8 +94,6 @@ export default function ContactForm() {
         setSubmitStatus("success");
         clearForm();
       } else {
-        // If the backend exists but returned an error (e.g. no token configured in .env),
-        // fallback to simulation mode and print a console warning.
         const errData = await response.json().catch(() => ({}));
         console.warn(
           "Backend proxy error or not configured, running simulation fallback:",
@@ -102,7 +102,6 @@ export default function ContactForm() {
         runSimulation();
       }
     } catch (err) {
-      // Backend server is not running (e.g. static dev build)
       console.warn(
         "Backend server not running, falling back to client-side simulation.",
       );
@@ -123,10 +122,11 @@ export default function ContactForm() {
 
   const clearForm = () => {
     setName("");
+    setPhone("");
     setEmail("");
     setCompany("");
     setMessage("");
-    setSelectedService("development");
+    setSelectedService("");
   };
 
   return (
@@ -277,40 +277,57 @@ export default function ContactForm() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label htmlFor="phone">Номер телефона *</label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    required
+                    disabled={isSubmitting}
+                    placeholder="+7 (707) 123-45-67"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group-row">
+                <div className="form-group">
+                  <label htmlFor="email">Email (необязательно)</label>
                   <input
                     id="email"
                     type="email"
-                    required
                     disabled={isSubmitting}
                     placeholder="info@webhub.kz"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+                <div className="form-group">
+                  <label htmlFor="company">Компания (необязательно)</label>
+                  <input
+                    id="company"
+                    type="text"
+                    disabled={isSubmitting}
+                    placeholder="Название компании"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="form-group">
-                <label htmlFor="company">Компания</label>
-                <input
-                  id="company"
-                  type="text"
-                  disabled={isSubmitting}
-                  placeholder="Название компании"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Интересующая услуга</label>
+                <label>Услуга (необязательно)</label>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                   {services.map((service) => (
                     <button
                       key={service.id}
                       type="button"
                       disabled={isSubmitting}
-                      onClick={() => setSelectedService(service.id)}
+                      onClick={() =>
+                        setSelectedService(
+                          selectedService === service.id ? "" : service.id
+                        )
+                      }
                       style={{
                         padding: "6px 12px",
                         borderRadius: "4px",

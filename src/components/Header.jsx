@@ -43,19 +43,19 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="header-nav-desktop">
             <a href="#services" className="nav-link">
-              Услуги
+              Решения
             </a>
             <a href="#ecosystem" className="nav-link">
-              Стандарты
+              Подход
             </a>
-            <a href="#git-activity-section" className="nav-link">
-              Активность
+            <a href="#calculator" className="nav-link">
+              Калькулятор
             </a>
-            <a href="#terminal-section" className="nav-link">
-              Консоль
+            <a href="#cases" className="nav-link">
+              Кейсы
             </a>
             <a href="#contact" className="nav-link">
-              Связаться
+              Контакты
             </a>
           </nav>
 
@@ -152,19 +152,19 @@ export default function Header() {
       {/* Mobile Navigation Overlay */}
       <nav className={`header-nav-mobile ${isMenuOpen ? "open" : ""}`}>
         <a href="#services" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-          Услуги
+          Решения
         </a>
         <a href="#ecosystem" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-          Стандарты
+          Подход
         </a>
-        <a href="#git-activity-section" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-          Активность
+        <a href="#calculator" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+          Калькулятор
         </a>
-        <a href="#terminal-section" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-          Консоль
+        <a href="#cases" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+          Кейсы
         </a>
         <a href="#contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-          Связаться
+          Контакты
         </a>
       </nav>
     </>

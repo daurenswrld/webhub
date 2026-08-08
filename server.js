@@ -12,10 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, company, message, service } = req.body;
+  const { name, phone, email, company, message, service } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Пожалуйста, заполните все обязательные поля.' });
+  if (!name || !phone || !message) {
+    return res.status(400).json({ error: 'Пожалуйста, заполните обязательные поля: Имя, Номер и Сообщение.' });
   }
 
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -29,11 +29,12 @@ app.post('/api/contact', async (req, res) => {
   // Format the Telegram message
   const serviceText = service || 'Не указана';
   const textMsg = `<b>[NEW LEAD // WEBHUB]</b>\n\n` +
-    `<b>[NAME]:</b> ${name.trim()}\n` +
-    `<b>[EMAIL]:</b> ${email.trim()}\n` +
-    `<b>[COMPANY]:</b> ${company ? company.trim() : 'Не указана'}\n` +
-    `<b>[SERVICE]:</b> ${serviceText}\n\n` +
-    `<b>[MESSAGE]:</b>\n${message.trim()}`;
+    `<b>[ИМЯ]:</b> ${name.trim()}\n` +
+    `<b>[ТЕЛЕФОН]:</b> ${phone.trim()}\n` +
+    `<b>[EMAIL]:</b> ${email ? email.trim() : 'Не указан'}\n` +
+    `<b>[КОМПАНИЯ]:</b> ${company ? company.trim() : 'Не указана'}\n` +
+    `<b>[УСЛУГА]:</b> ${serviceText}\n\n` +
+    `<b>[СООБЩЕНИЕ]:</b>\n${message.trim()}`;
 
   try {
     const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;

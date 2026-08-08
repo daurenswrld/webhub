@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Ecosystem from './components/Ecosystem';
+import Cases from './components/Cases';
 import GitActivity from './components/GitActivity';
 import TerminalConsole from './components/TerminalConsole';
 import ContactForm from './components/ContactForm';
@@ -18,6 +19,7 @@ function App() {
         <Hero />
         <Services />
         <Ecosystem />
+        <Cases />
         <GitActivity />
         <TerminalConsole />
         <ContactForm />

@@ -14,11 +14,20 @@ import {
   CheckCircle2, 
   AlertCircle,
   FileText,
-  DollarSign
+  DollarSign,
+  Globe,
+  Smartphone,
+  Settings,
+  Cloud,
+  Bot,
+  Rocket,
+  Layers,
+  ShieldCheck,
+  Cpu
 } from 'lucide-react';
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState('websites'); // 'websites' | 'marketplaces' | 'erp' | 'crm'
+  const [activeTab, setActiveTab] = useState('websites'); // 'websites' | 'mobile' | 'erp' | 'backend' | 'ai' | 'support'
 
   // Common interactive state for Project Estimator
   const [estimatorScale, setEstimatorScale] = useState('medium'); // 'small' | 'medium' | 'enterprise'
@@ -34,7 +43,7 @@ export default function Services() {
   const [lhScores, setLhScores] = useState({ perf: 0, seo: 0, bp: 0, access: 0 });
   const [lhLogs, setLhLogs] = useState([]);
 
-  // 2. Marketplaces (Load) Simulator State
+  // 2. Marketplaces / Mobile Simulator State
   const [loadSimulating, setLoadSimulating] = useState(false);
   const [loadRps, setLoadRps] = useState(12);
   const [loadLatency, setLoadLatency] = useState(6);
@@ -62,7 +71,7 @@ export default function Services() {
   useEffect(() => {
     setEstimatorScale('medium');
     setEstimatorSpeed('normal');
-    setEstimatorIntegrations(activeTab === 'websites' ? 1 : activeTab === 'marketplaces' ? 3 : 5);
+    setEstimatorIntegrations(activeTab === 'websites' ? 1 : activeTab === 'mobile' ? 3 : 5);
   }, [activeTab]);
 
   // Handle Lighthouse Simulator trigger
@@ -243,17 +252,25 @@ export default function Services() {
         basePrice = 2800;
         baseTime = 20;
         break;
-      case 'marketplaces':
-        basePrice = 6500;
-        baseTime = 40;
+      case 'mobile':
+        basePrice = 5500;
+        baseTime = 35;
         break;
       case 'erp':
-        basePrice = 12000;
-        baseTime = 60;
+        basePrice = 9800;
+        baseTime = 50;
         break;
-      case 'crm':
-        basePrice = 8500;
-        baseTime = 45;
+      case 'backend':
+        basePrice = 6200;
+        baseTime = 30;
+        break;
+      case 'ai':
+        basePrice = 4500;
+        baseTime = 25;
+        break;
+      case 'support':
+        basePrice = 1800;
+        baseTime = 14;
         break;
       default:
         basePrice = 3000;
@@ -285,17 +302,21 @@ export default function Services() {
 
   const handleOrderClick = () => {
     const serviceNames = {
-      websites: 'development', // 'Разработка веб-приложений'
-      marketplaces: 'development',
-      erp: 'architecture', // 'Проектирование систем'
-      crm: 'architecture'
+      websites: 'development',
+      mobile: 'development',
+      erp: 'architecture',
+      backend: 'architecture',
+      ai: 'development',
+      support: 'devops'
     };
 
     const serviceLabels = {
-      websites: 'Сайты и Web Apps',
-      marketplaces: 'Маркетплейс / E-commerce',
-      erp: 'ERP система автоматизации',
-      crm: 'CRM система продаж'
+      websites: '🌐 Веб-разработка',
+      mobile: '📱 Мобильные приложения',
+      erp: '⚙️ Корпоративные системы (CRM/ERP)',
+      backend: '☁️ Backend и API',
+      ai: '🤖 AI и автоматизация',
+      support: '🚀 Поддержка и развитие'
     };
 
     const messageText = `Здравствуйте! Хочу обсудить разработку проекта:\n` +
@@ -303,7 +324,7 @@ export default function Services() {
       `- Масштаб: ${estimatorScale === 'small' ? 'Стартап / MVP' : estimatorScale === 'medium' ? 'Бизнес-версия' : 'Корпоративный масштаб'}\n` +
       `- Срочность: ${estimatorSpeed === 'express' ? 'Экспресс (ускоренная)' : 'Стандартный график'}\n` +
       `- Интеграции: ${estimatorIntegrations} внешних сервисов\n` +
-      `- Конфигуратор сметы: ~$${estimatedPrice} (${estimatedTime} дней)`;
+      `- Предварительный расчет: ~$${estimatedPrice} (${estimatedTime} дней)`;
 
     // Dispatch the custom event to ContactForm
     const event = new CustomEvent('configure-project', {
@@ -320,43 +341,99 @@ export default function Services() {
     switch (activeTab) {
       case 'websites':
         return {
-          title: 'Высокотехнологичные сайты & Web Apps',
-          tagline: 'Мгновенный рендеринг, выверенная семантика и максимальный SEO-скоринг.',
-          longDesc: 'Мы разрабатываем посадочные страницы, корпоративные порталы и веб-сервисы, которые мгновенно открываются на любом устройстве. Оптимизируем код до последнего байта, исключаем лишние скрипты и строим безупречную структуру для поисковых систем.',
-          tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vite', 'WebGL / SSR'],
-          limitLabel: 'Количество страниц / секций',
+          title: '🌐 Веб-разработка',
+          tagline: 'Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.',
+          longDesc: 'Разрабатываем корпоративные порталы, Headless E-commerce площадки и информационные сервисы. Мгновенный рендеринг, идеальная верстка под мобильные устройства, интеграции с Kaspi QR / Stripe и 100% готовность к SEO-продвижению.',
+          tech: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Headless CMS', 'Kaspi Pay'],
+          limitLabel: 'Количество страниц / модулей',
           minLimit: 1,
-          maxLimit: 15
+          maxLimit: 15,
+          subCategories: [
+            'Корпоративные сайты и холдинги',
+            'Интернет-магазины & E-commerce',
+            'Высококонверсионные лендинги',
+            'PWA и Web Applications (SSR)'
+          ]
         };
-      case 'marketplaces':
+      case 'mobile':
         return {
-          title: 'Отказоустойчивый E-commerce & Маркетплейсы',
-          tagline: 'Архитектура, готовая к пиковым нагрузкам Черной Пятницы.',
-          longDesc: 'Создаем торговые площадки, маркетплейсы и интернет-магазины с мгновенным поиском, интеграциями с платежными шлюзами (Kaspi, Stripe) и службами доставки. Код пишется с упором на кэширование и распределенную обработку транзакций.',
-          tech: ['Node.js', 'PostgreSQL', 'Redis', 'WebSockets', 'Kaspi API', 'Stripe / QR'],
-          limitLabel: 'Интеграции со службами и API',
+          title: '📱 Мобильные приложения',
+          tagline: 'Нативные и кроссплатформенные приложения для iOS и Android.',
+          longDesc: 'Создаем быстродействующие мобильные продукты для работы с клиентами и сотрудниками. От платежных систем и сканеров штрих-кодов до личных кабинетов с офлайн-режимом и биометрией.',
+          tech: ['Flutter', 'React Native', 'Swift (iOS)', 'Kotlin (Android)', 'Push API', 'Biometrics', 'Firebase'],
+          limitLabel: 'Интеграции нативных модулей / API',
           minLimit: 1,
-          maxLimit: 10
+          maxLimit: 10,
+          subCategories: [
+            'iOS & Android приложения',
+            'Клиентские личные кабинеты',
+            'Приложения для курьеров и склада',
+            'Мобильный эквайринг & QR push'
+          ]
         };
       case 'erp':
         return {
-          title: 'ERP-системы управления предприятием',
-          tagline: 'Автоматизация логистики, складов, финансов и производства.',
-          longDesc: 'Проектируем закрытые внутренние системы для управления бизнес-процессами компании. Объединяем бухгалтерию, закупки, учет остатков и работу филиалов в единый интерактивный интерфейс. Забудьте о хаосе в Excel-таблицах.',
-          tech: ['NestJS', 'Go (Golang)', 'PostgreSQL', 'Docker', 'Kubernetes', 'Microservices'],
-          limitLabel: 'Связанные внутренние отделы/базы',
+          title: '⚙️ Корпоративные системы (CRM & ERP)',
+          tagline: 'CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.',
+          longDesc: 'Устраняем рутину и хаос в Excel. Объединяем продажи, складские остатки, закупки, финансы и работу персонала в единую систему с автоматической генерацией документов и триггерами в мессенджеры.',
+          tech: ['NestJS', 'PostgreSQL', 'Docker', '1C API', 'Telegram Bots', 'WhatsApp API', 'Redis'],
+          limitLabel: 'Связанные бизнес-модули / отделы',
           minLimit: 2,
-          maxLimit: 12
+          maxLimit: 12,
+          subCategories: [
+            'Кастомные CRM воронки продаж',
+            'ERP системы учета складов и ТМЦ',
+            'Личные кабинеты партнеров и дилеров',
+            'BPM автоматизация согласований'
+          ]
         };
-      case 'crm':
+      case 'backend':
         return {
-          title: 'CRM-системы & Автоматизация продаж',
-          tagline: 'Контроль лидов, авто-воронки и боты-помощники.',
-          longDesc: 'Разрабатываем кастомные CRM под уникальный цикл продаж компании. Интеграция с мессенджерами (WhatsApp, Telegram), телефонией и отправкой авто-счетов. Ни один лид не потеряется благодаря умным триггерам.',
-          tech: ['React', 'Express', 'MongoDB', 'WebSocket', 'Telegram API', 'Twilio / Asterisk'],
-          limitLabel: 'Автоматические интеграции мессенджеров',
+          title: '☁️ Backend и API',
+          tagline: 'Надежная серверная часть, интеграции и масштабируемая архитектура.',
+          longDesc: 'Проектируем отказоустойчивые микросервисы и распределенные СУБД, выдерживающие высокие нагрузки и пиковый трафик. Разворачиваем защищенные REST, gRPC и GraphQL API.',
+          tech: ['Go (Golang)', 'Node.js', 'PostgreSQL', 'Redis', 'gRPC', 'Kafka / RabbitMQ', 'Docker'],
+          limitLabel: 'Количество микросервисов / интеграций',
           minLimit: 1,
-          maxLimit: 8
+          maxLimit: 10,
+          subCategories: [
+            'Высоконагруженные REST & gRPC API',
+            'Микросервисная архитектура',
+            'Интеграции банк-клиентов и 1С',
+            'Кэширование & Оптимизация СУБД'
+          ]
+        };
+      case 'ai':
+        return {
+          title: '🤖 AI и автоматизация',
+          tagline: 'Внедрение ИИ, чат-ботов и автоматизация рутинных задач.',
+          longDesc: 'Внедряем современные нейросети и умных ассистентов в ваши бизнес-процессы. Консультации пользователей 24/7 в WhatsApp/Telegram, авто-обработка заявок и парсинг первичных документов.',
+          tech: ['OpenAI / GPT-4', 'Claude API', 'Python', 'Vector DB', 'LangChain', 'Telegram API', 'WhatsApp Bot'],
+          limitLabel: 'Автоматизированные AI-сценарии',
+          minLimit: 1,
+          maxLimit: 8,
+          subCategories: [
+            'Умные чат-боты WhatsApp & Telegram',
+            'LLM ассистенты по базе знаний',
+            'Распознавание документов и счетов',
+            'Интеллектуальная маршрутизация лидов'
+          ]
+        };
+      case 'support':
+        return {
+          title: '🚀 Поддержка и развитие',
+          tagline: 'Сопровождение, развитие продукта и техническая поддержка после запуска.',
+          longDesc: 'Обеспечиваем бесперебойную работу ваших сервисов 24/7. Регулярные бэкапы, мониторинг нагрузки, оперативное устранение сбоев, доработка нового функционала и контроль безопасности.',
+          tech: ['Prometheus', 'Grafana', 'CI/CD Pipelines', 'AWS / Cloudflare', 'Nginx', 'SLA 99.99%', 'Linux Admin'],
+          limitLabel: 'Часов доработок в месяц',
+          minLimit: 5,
+          maxLimit: 40,
+          subCategories: [
+            '24/7 SLA мониторинг и алерты',
+            'Регулярные обновления и фиксы',
+            'DevOps и настройка серверов',
+            'Аудит безопасности и резервирование'
+          ]
         };
       default:
         return {};
@@ -373,263 +450,370 @@ export default function Services() {
         <div className="section-header animate-fade-in">
           <span className="mono-label">ИНЖЕНЕРНЫЕ РЕШЕНИЯ // НАПРАВЛЕНИЯ</span>
           <h2 className="section-subtitle" style={{ fontSize: '2.25rem', marginTop: '8px' }}>
-            Разрабатываем системы любого масштаба
+            Разрабатываем цифровые продукты любого масштаба
           </h2>
-          <p style={{ maxWidth: '600px', fontSize: '0.95rem', marginTop: '8px' }}>
-            Мы не пишем шаблонный код. Каждая система проектируется с нуля под бизнес-требования с гарантией быстродействия и масштабируемости.
+          <div style={{
+            fontSize: '1rem',
+            fontFamily: 'var(--font-heading)',
+            color: 'var(--success)',
+            fontWeight: 600,
+            marginTop: '4px'
+          }}>
+            Наши услуги — Экспертиза
+          </div>
+          <p style={{ maxWidth: '750px', fontSize: '0.95rem', marginTop: '8px', lineHeight: 1.6 }}>
+            Проектируем и создаем решения, которые помогают бизнесу расти: от корпоративных сайтов до сложных веб-платформ, мобильных приложений и внутренних систем. Каждое решение разрабатывается с учетом ваших задач, будущего роста и долгосрочной поддержки.
           </p>
         </div>
 
-        {/* Tab Switcher Tabs */}
-        <div className="animate-fade-in" style={{
+        {/* 6 Directions Showcase Cards */}
+        <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          gap: '8px',
-          marginBottom: 'var(--space-4)'
-        }}>
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 'var(--space-3)',
+          marginBottom: 'var(--space-6)'
+        }} className="animate-fade-in">
           {[
-            { id: 'websites', label: 'Сайты & Web Apps', icon: <Laptop size={16} /> },
-            { id: 'marketplaces', label: 'Маркетплейсы / E-com', icon: <ShoppingCart size={16} /> },
-            { id: 'erp', label: 'ERP системы', icon: <Database size={16} /> },
-            { id: 'crm', label: 'CRM системы', icon: <Users size={16} /> }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
+            {
+              id: 'websites',
+              title: '🌐 Веб-разработка',
+              desc: 'Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.',
+              items: ['Корпоративные порталы', 'Headless E-commerce', 'SSR & PWA приложения', 'Высокая конверсия']
+            },
+            {
+              id: 'mobile',
+              title: '📱 Мобильные приложения',
+              desc: 'Нативные и кроссплатформенные приложения для iOS и Android.',
+              items: ['Swift & Kotlin натив', 'Flutter / React Native', 'Офлайн режим & Push', 'Kaspi Pay / QR']
+            },
+            {
+              id: 'erp',
+              title: '⚙️ Корпоративные системы',
+              desc: 'CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.',
+              items: ['CRM воронки продаж', 'Учет склада и ТМЦ', 'Личные кабинеты дилеров', 'Интеграция с 1С']
+            },
+            {
+              id: 'backend',
+              title: '☁️ Backend и API',
+              desc: 'Надежная серверная часть, интеграции и масштабируемая архитектура.',
+              items: ['Golang & Node.js API', 'Микросервисы & gRPC', 'High-load оптимизация', 'Kafka & RabbitMQ']
+            },
+            {
+              id: 'ai',
+              title: '🤖 AI и автоматизация',
+              desc: 'Внедрение ИИ, чат-ботов и автоматизация рутинных задач.',
+              items: ['GPT-4 & Claude ассистенты', 'Боты WhatsApp & TG', 'Обработка документов', 'RPA роботы']
+            },
+            {
+              id: 'support',
+              title: '🚀 Поддержка и развитие',
+              desc: 'Сопровождение, развитие продукта и техническая поддержка после запуска.',
+              items: ['24/7 SLA мониторинг', 'DevOps & CI/CD деплой', 'Аудит безопасности', 'Регулярные апдейты']
+            }
+          ].map((card) => (
+            <div
+              key={card.id}
+              onClick={() => {
+                setActiveTab(card.id);
+                const calcEl = document.getElementById('calculator');
+                if (calcEl) calcEl.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="service-card"
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: 'var(--space-2) var(--space-3)',
-                borderRadius: 'var(--radius-sm)',
-                backgroundColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--bg-secondary)',
-                color: activeTab === tab.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                border: '1px solid',
-                borderColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                fontFamily: 'var(--font-heading)',
-                fontSize: '0.85rem',
-                fontWeight: 600,
                 cursor: 'pointer',
-                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-              onMouseEnter={(e) => {
-                if (activeTab !== tab.id) {
-                  e.currentTarget.style.borderColor = 'var(--text-secondary)';
-                  e.currentTarget.style.color = 'var(--text-primary)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (activeTab !== tab.id) {
-                  e.currentTarget.style.borderColor = 'var(--border-primary)';
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                }
+                borderColor: activeTab === card.id ? 'var(--text-primary)' : 'var(--border-primary)'
               }}
             >
-              {tab.icon}
-              {tab.label}
-            </button>
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '6px', fontWeight: 600 }}>{card.title}</h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '12px' }}>
+                {card.desc}
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto' }}>
+                {card.items.map((it, idx) => (
+                  <span key={idx} style={{
+                    fontSize: '0.7rem',
+                    fontFamily: 'var(--font-mono)',
+                    backgroundColor: 'var(--bg-tertiary)',
+                    border: '1px solid var(--border-primary)',
+                    padding: '2px 6px',
+                    borderRadius: '2px',
+                    color: 'var(--text-primary)'
+                  }}>
+                    • {it}
+                  </span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Tab Detailed View Workspace */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 0.9fr',
-          gap: 'var(--space-4)',
-          alignItems: 'stretch'
-        }} className="services-grid-layout">
-          
-          {/* LEFT: Service description & pricing tool */}
-          <div style={{
-            backgroundColor: 'var(--bg-secondary)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-md)',
-            padding: 'var(--space-4)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            textAlign: 'left'
-          }} className="animate-fade-in">
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--success)', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', marginBottom: '8px' }}>
-                <span className="pulse-indicator" /> ACTIVE VIEW // STACK READY
-              </div>
-              <h3 style={{ fontSize: '1.6rem', marginBottom: '8px' }}>{details.title}</h3>
-              <p style={{ color: 'var(--text-primary)', fontWeight: 500, fontSize: '0.95rem', marginBottom: '12px', lineHeight: 1.4 }}>
-                {details.tagline}
-              </p>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.6 }}>
-                {details.longDesc}
-              </p>
-
-              {/* Technologies List */}
-              <div style={{ marginBottom: '24px' }}>
-                <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
-                  Стек технологий:
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {details.tech?.map((t) => (
-                    <span key={t} style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.7rem',
-                      color: 'var(--text-primary)',
-                      backgroundColor: 'var(--bg-tertiary)',
-                      border: '1px solid var(--border-primary)',
-                      padding: '4px 8px',
-                      borderRadius: '2px'
-                    }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Price Configurator Tool */}
-            <div style={{
-              borderTop: '1px solid var(--border-dim)',
-              paddingTop: '20px',
-              marginTop: '12px'
-            }}>
-              <h4 style={{ fontSize: '0.9rem', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
-                Интерактивный калькулятор бюджета
-              </h4>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
-                
-                {/* Scale selection */}
-                <div>
-                  <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Масштаб проекта</label>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    {[
-                      { id: 'small', label: 'MVP / Стартап' },
-                      { id: 'medium', label: 'Бизнес-версия' },
-                      { id: 'enterprise', label: 'Enterprise' }
-                    ].map((opt) => (
-                      <button
-                        key={opt.id}
-                        type="button"
-                        onClick={() => setEstimatorScale(opt.id)}
-                        style={{
-                          flex: 1,
-                          padding: '6px 8px',
-                          fontSize: '0.75rem',
-                          fontFamily: 'var(--font-sans)',
-                          borderRadius: '4px',
-                          border: '1px solid',
-                          borderColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                          backgroundColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'transparent',
-                          color: estimatorScale === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease'
-                        }}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Slider for Integrations */}
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <label style={{ fontSize: '0.75rem', margin: 0 }}>{details.limitLabel}</label>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--success)' }}>
-                      {estimatorIntegrations}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={details.minLimit}
-                    max={details.maxLimit}
-                    value={estimatorIntegrations}
-                    onChange={(e) => setEstimatorIntegrations(parseInt(e.target.value))}
-                    style={{
-                      height: '4px',
-                      background: 'var(--border-primary)',
-                      accentColor: 'var(--text-primary)',
-                      outline: 'none',
-                      padding: 0,
-                      cursor: 'pointer'
-                    }}
-                  />
-                </div>
-
-                {/* Speed toggle */}
-                <div>
-                  <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Сроки разработки</label>
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    {[
-                      { id: 'normal', label: 'Стандартный график' },
-                      { id: 'express', label: 'Экспресс-деплой (+35% к цене)' }
-                    ].map((opt) => (
-                      <button
-                        key={opt.id}
-                        type="button"
-                        onClick={() => setEstimatorSpeed(opt.id)}
-                        style={{
-                          flex: 1,
-                          padding: '6px 8px',
-                          fontSize: '0.75rem',
-                          fontFamily: 'var(--font-sans)',
-                          borderRadius: '4px',
-                          border: '1px solid',
-                          borderColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                          backgroundColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'transparent',
-                          color: estimatorSpeed === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease'
-                        }}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Estimate results display */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: 'var(--space-2)',
-                backgroundColor: 'var(--bg-tertiary)',
-                border: '1px solid var(--border-primary)',
-                borderRadius: 'var(--radius-sm)',
-                marginBottom: '16px'
-              }}>
-                <div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
-                    Примерный бюджет
-                  </div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
-                    ${estimatedPrice.toLocaleString()}
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
-                    Срок реализации
-                  </div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
-                    ~{estimatedTime} дней
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <button
-                onClick={handleOrderClick}
-                className="btn btn-primary"
-                style={{ width: '100%', gap: '8px', fontSize: '0.85rem' }}
-              >
-                Оформить заявку на проект <ArrowRight size={14} />
-              </button>
-
-            </div>
+        {/* Calculator Anchor Container */}
+        <div id="calculator" style={{ paddingTop: '20px' }}>
+          <div style={{ marginBottom: '16px', textAlign: 'left' }}>
+            <span className="mono-label">ИНТЕРАКТИВНЫЙ РАСЧЕТ // СМЕТА</span>
+            <h3 style={{ fontSize: '1.75rem', marginTop: '4px' }}>Калькулятор стоимости и сроков</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              Выберите нужное направление ниже, чтобы настроить параметры вашего проекта и получить детальную смету.
+            </p>
           </div>
+
+          {/* Tab Switcher Buttons */}
+          <div className="animate-fade-in" style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gap: '8px',
+            marginBottom: 'var(--space-4)'
+          }}>
+            {[
+              { id: 'websites', label: '🌐 Веб-разработка' },
+              { id: 'mobile', label: '📱 Мобильные' },
+              { id: 'erp', label: '⚙️ CRM & ERP' },
+              { id: 'backend', label: '☁️ Backend & API' },
+              { id: 'ai', label: '🤖 AI & ИИ' },
+              { id: 'support', label: '🚀 Поддержка' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: 'var(--space-2) var(--space-2)',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--bg-secondary)',
+                  color: activeTab === tab.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                  border: '1px solid',
+                  borderColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--border-primary)',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Detailed View Workspace */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1.1fr 0.9fr',
+            gap: 'var(--space-4)',
+            alignItems: 'stretch'
+          }} className="services-grid-layout">
+            
+            {/* LEFT: Service description & pricing tool */}
+            <div style={{
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: 'var(--radius-md)',
+              padding: 'var(--space-4)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              textAlign: 'left'
+            }} className="animate-fade-in">
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--success)', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', marginBottom: '8px' }}>
+                  <span className="pulse-indicator" /> ACTIVE SPECIFICATION // READY
+                </div>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{details.title}</h3>
+                <p style={{ color: 'var(--text-primary)', fontWeight: 500, fontSize: '0.95rem', marginBottom: '12px', lineHeight: 1.4 }}>
+                  {details.tagline}
+                </p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
+                  {details.longDesc}
+                </p>
+
+                {/* Subcategories bullet breakdown */}
+                {details.subCategories && (
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.05em' }}>
+                      Детальный состав услуг:
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+                      {details.subCategories.map((sub, idx) => (
+                        <div key={idx} style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <CheckCircle2 size={12} style={{ color: 'var(--success)', flexShrink: 0 }} />
+                          <span>{sub}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Technologies List */}
+                <div style={{ marginBottom: '20px' }}>
+                  <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                    Стек технологий:
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {details.tech?.map((t) => (
+                      <span key={t} style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.7rem',
+                        color: 'var(--text-primary)',
+                        backgroundColor: 'var(--bg-tertiary)',
+                        border: '1px solid var(--border-primary)',
+                        padding: '4px 8px',
+                        borderRadius: '2px'
+                      }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Price Configurator Tool */}
+              <div style={{
+                borderTop: '1px solid var(--border-dim)',
+                paddingTop: '16px',
+                marginTop: '12px'
+              }}>
+                <h4 style={{ fontSize: '0.85rem', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+                  Параметры сметы проекта
+                </h4>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
+                  
+                  {/* Scale selection */}
+                  <div>
+                    <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Масштаб реализации</label>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      {[
+                        { id: 'small', label: 'MVP / Стартап' },
+                        { id: 'medium', label: 'Бизнес-версия' },
+                        { id: 'enterprise', label: 'Enterprise' }
+                      ].map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setEstimatorScale(opt.id)}
+                          style={{
+                            flex: 1,
+                            padding: '6px 8px',
+                            fontSize: '0.75rem',
+                            fontFamily: 'var(--font-sans)',
+                            borderRadius: '4px',
+                            border: '1px solid',
+                            borderColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
+                            backgroundColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'transparent',
+                            color: estimatorScale === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Slider for Integrations */}
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <label style={{ fontSize: '0.75rem', margin: 0 }}>{details.limitLabel}</label>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--success)' }}>
+                        {estimatorIntegrations}
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min={details.minLimit}
+                      max={details.maxLimit}
+                      value={estimatorIntegrations}
+                      onChange={(e) => setEstimatorIntegrations(parseInt(e.target.value))}
+                      style={{
+                        height: '4px',
+                        width: '100%',
+                        background: 'var(--border-primary)',
+                        accentColor: 'var(--text-primary)',
+                        outline: 'none',
+                        padding: 0,
+                        cursor: 'pointer'
+                      }}
+                    />
+                  </div>
+
+                  {/* Speed toggle */}
+                  <div>
+                    <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Сроки разработки</label>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      {[
+                        { id: 'normal', label: 'Стандартный график' },
+                        { id: 'express', label: 'Экспресс-деплой (+35%)' }
+                      ].map((opt) => (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setEstimatorSpeed(opt.id)}
+                          style={{
+                            flex: 1,
+                            padding: '6px 8px',
+                            fontSize: '0.75rem',
+                            fontFamily: 'var(--font-sans)',
+                            borderRadius: '4px',
+                            border: '1px solid',
+                            borderColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
+                            backgroundColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'transparent',
+                            color: estimatorSpeed === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Estimate results display */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: 'var(--space-2) var(--space-3)',
+                  backgroundColor: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-primary)',
+                  borderRadius: 'var(--radius-sm)',
+                  marginBottom: '16px'
+                }}>
+                  <div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                      Ориентировочный бюджет
+                    </div>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      ${estimatedPrice.toLocaleString()}
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                      Срок реализации
+                    </div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      ~{estimatedTime} дней
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Button */}
+                <button
+                  onClick={handleOrderClick}
+                  className="btn btn-primary"
+                  style={{ width: '100%', gap: '8px', fontSize: '0.85rem' }}
+                >
+                  Оформить заявку на проект <ArrowRight size={14} />
+                </button>
+
+              </div>
+            </div>
 
           {/* RIGHT: Live interactive simulator console */}
           <div style={{
@@ -1269,6 +1453,7 @@ export default function Services() {
         </div>
 
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }
