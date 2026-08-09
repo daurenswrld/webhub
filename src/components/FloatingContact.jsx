@@ -50,7 +50,10 @@ export default function FloatingContact() {
       bottom: '24px',
       right: '24px',
       zIndex: 1000,
-      fontFamily: 'var(--font-mono)'
+      fontFamily: 'var(--font-mono)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end'
     }}>
       {/* Expanded Quick Action Menu */}
       {isOpen && (

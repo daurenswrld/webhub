@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Laptop, 
-  ShoppingCart, 
-  Database, 
-  Users, 
-  Play, 
-  RotateCcw, 
-  Plus, 
-  Trash2, 
-  ChevronRight, 
-  ArrowRight, 
-  Activity, 
-  CheckCircle2, 
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Laptop,
+  ShoppingCart,
+  Database,
+  Users,
+  Play,
+  RotateCcw,
+  Plus,
+  Trash2,
+  ChevronRight,
+  ArrowRight,
+  Activity,
+  CheckCircle2,
   AlertCircle,
   FileText,
   DollarSign,
@@ -23,15 +23,15 @@ import {
   Rocket,
   Layers,
   ShieldCheck,
-  Cpu
-} from 'lucide-react';
+  Cpu,
+} from "lucide-react";
 
 export default function Services() {
-  const [activeTab, setActiveTab] = useState('websites'); // 'websites' | 'mobile' | 'erp' | 'backend' | 'ai' | 'support'
+  const [activeTab, setActiveTab] = useState("websites"); // 'websites' | 'mobile' | 'erp' | 'backend' | 'ai' | 'support'
 
   // Common interactive state for Project Estimator
-  const [estimatorScale, setEstimatorScale] = useState('medium'); // 'small' | 'medium' | 'enterprise'
-  const [estimatorSpeed, setEstimatorSpeed] = useState('normal'); // 'normal' | 'express'
+  const [estimatorScale, setEstimatorScale] = useState("medium"); // 'small' | 'medium' | 'enterprise'
+  const [estimatorSpeed, setEstimatorSpeed] = useState("normal"); // 'normal' | 'express'
   const [estimatorIntegrations, setEstimatorIntegrations] = useState(2); // number of integrations
 
   const [loadHistory, setLoadHistory] = useState(Array(15).fill(12));
@@ -40,7 +40,12 @@ export default function Services() {
 
   // 1. Websites (Lighthouse) Simulator State
   const [lhTesting, setLhTesting] = useState(false);
-  const [lhScores, setLhScores] = useState({ perf: 0, seo: 0, bp: 0, access: 0 });
+  const [lhScores, setLhScores] = useState({
+    perf: 0,
+    seo: 0,
+    bp: 0,
+    access: 0,
+  });
   const [lhLogs, setLhLogs] = useState([]);
 
   // 2. Marketplaces / Mobile Simulator State
@@ -51,27 +56,69 @@ export default function Services() {
 
   // 3. ERP (Ledger) Simulator State
   const [erpTransactions, setErpTransactions] = useState([
-    { id: 1, title: 'Продажа SaaS лицензии', amount: 8500, type: 'income' },
-    { id: 2, title: 'Аренда серверов AWS', amount: 1200, type: 'expense' },
-    { id: 3, title: 'ФОТ Инженеров', amount: 4800, type: 'expense' },
+    { id: 1, title: "Продажа SaaS лицензии", amount: 8500, type: "income" },
+    { id: 2, title: "Аренда серверов AWS", amount: 1200, type: "expense" },
+    { id: 3, title: "ФОТ Инженеров", amount: 4800, type: "expense" },
   ]);
-  const [erpNewName, setErpNewName] = useState('');
-  const [erpNewAmount, setErpNewAmount] = useState('');
-  const [erpNewType, setErpNewType] = useState('income');
+  const [erpNewName, setErpNewName] = useState("");
+  const [erpNewAmount, setErpNewAmount] = useState("");
+  const [erpNewType, setErpNewType] = useState("income");
 
   // 4. CRM (Kanban) Simulator State
   const [crmDeals, setCrmDeals] = useState([
-    { id: 1, title: 'Сайт-каталог', client: 'KazOil', value: 3500, stage: 'lead' },
-    { id: 2, title: 'Интеграция ERP', client: 'StroyLogistics', value: 7200, stage: 'progress' },
-    { id: 3, title: 'Дизайн-система', client: 'NeoBank', value: 4800, stage: 'done' },
+    {
+      id: 1,
+      title: "Сайт-каталог",
+      client: "KazOil",
+      value: 3500,
+      stage: "lead",
+    },
+    {
+      id: 2,
+      title: "Интеграция ERP",
+      client: "StroyLogistics",
+      value: 7200,
+      stage: "progress",
+    },
+    {
+      id: 3,
+      title: "Дизайн-система",
+      client: "NeoBank",
+      value: 4800,
+      stage: "done",
+    },
   ]);
-  const [crmLogs, setCrmLogs] = useState(['Система CRM инициализирована. Роботы триггеров готовы.']);
+  const [crmLogs, setCrmLogs] = useState([
+    "Система CRM инициализирована. Роботы триггеров готовы.",
+  ]);
+
+  // 5. Backend Simulator State
+  const [backendBenchmarking, setBackendBenchmarking] = useState(false);
+  const [backendLogs, setBackendLogs] = useState([]);
+
+  // 6. AI Simulator State
+  const [aiRunning, setAiRunning] = useState(false);
+  const [aiScenario, setAiScenario] = useState("document"); // 'document' | 'chatbot' | 'routing'
+  const [aiLogs, setAiLogs] = useState([]);
+  const [aiResult, setAiResult] = useState(null);
+
+  // 7. Support / DevOps Simulator State
+  const [supportTesting, setSupportTesting] = useState(false);
+  const [supportLogs, setSupportLogs] = useState([]);
+  const [supportNodes, setSupportNodes] = useState([
+    { name: "Almaty (HQ)", ping: 3, cpu: 14, ram: 36, status: "ONLINE" },
+    { name: "Frankfurt (EU)", ping: 42, cpu: 19, ram: 42, status: "ONLINE" },
+    { name: "Singapore (APAC)", ping: 65, cpu: 12, ram: 28, status: "ONLINE" },
+    { name: "NYC (US East)", ping: 98, cpu: 24, ram: 51, status: "ONLINE" },
+  ]);
 
   // Reset estimator choices when changing tabs
   useEffect(() => {
-    setEstimatorScale('medium');
-    setEstimatorSpeed('normal');
-    setEstimatorIntegrations(activeTab === 'websites' ? 1 : activeTab === 'mobile' ? 3 : 5);
+    setEstimatorScale("medium");
+    setEstimatorSpeed("normal");
+    setEstimatorIntegrations(
+      activeTab === "websites" ? 1 : activeTab === "mobile" ? 3 : 5,
+    );
   }, [activeTab]);
 
   // Handle Lighthouse Simulator trigger
@@ -82,12 +129,15 @@ export default function Services() {
     setLhLogs([]);
 
     const logSteps = [
-      { t: 200, m: '[INIT] Инициализация контейнера headless-chrome...' },
-      { t: 500, m: '[INFO] Анализ размера бандла (React 19, Tree-shaking)...' },
-      { t: 900, m: '[INFO] Проверка серверного рендеринга (SSR TTFB: 18ms)...' },
-      { t: 1300, m: '[INFO] Валидация SEO-структуры и семантики HTML5...' },
-      { t: 1700, m: '[INFO] Сжатие ассетов и оптимизация WebP изображений...' },
-      { t: 2000, m: '[SUCCESS] Анализ завершен. Результаты оптимальны.' }
+      { t: 200, m: "[INIT] Инициализация контейнера headless-chrome..." },
+      { t: 500, m: "[INFO] Анализ размера бандла (React 19, Tree-shaking)..." },
+      {
+        t: 900,
+        m: "[INFO] Проверка серверного рендеринга (SSR TTFB: 18ms)...",
+      },
+      { t: 1300, m: "[INFO] Валидация SEO-структуры и семантики HTML5..." },
+      { t: 1700, m: "[INFO] Сжатие ассетов и оптимизация WebP изображений..." },
+      { t: 2000, m: "[SUCCESS] Анализ завершен. Результаты оптимальны." },
     ];
 
     logSteps.forEach((step) => {
@@ -146,23 +196,27 @@ export default function Services() {
 
       // Generate orders
       const orderTemplates = [
-        { item: 'Смартфон X Pro', price: 990, gateway: 'Kaspi Pay' },
-        { item: 'Беспроводные наушники', price: 180, gateway: 'Visa/Mastercard' },
-        { item: 'Ноутбук Air 15', price: 1450, gateway: 'Kaspi QR' },
-        { item: 'Подписка WebHub Cloud', price: 49, gateway: 'Kaspi Pay' },
-        { item: 'Кожаный чехол', price: 35, gateway: 'Apple Pay' }
+        { item: "Смартфон X Pro", price: 990, gateway: "Kaspi Pay" },
+        {
+          item: "Беспроводные наушники",
+          price: 180,
+          gateway: "Visa/Mastercard",
+        },
+        { item: "Ноутбук Air 15", price: 1450, gateway: "Kaspi QR" },
+        { item: "Подписка WebHub Cloud", price: 49, gateway: "Kaspi Pay" },
+        { item: "Кожаный чехол", price: 35, gateway: "Apple Pay" },
       ];
 
       orderInterval = setInterval(() => {
-        const tpl = orderTemplates[Math.floor(Math.random() * orderTemplates.length)];
+        const tpl =
+          orderTemplates[Math.floor(Math.random() * orderTemplates.length)];
         const newOrder = {
           id: Date.now() + Math.random().toString(36).substr(2, 5),
           time: new Date().toLocaleTimeString(),
-          ...tpl
+          ...tpl,
         };
         setLoadOrders((prev) => [newOrder, ...prev.slice(0, 4)]);
       }, 700);
-
     } else {
       setLoadRps(12);
       setLoadLatency(4);
@@ -185,27 +239,35 @@ export default function Services() {
       id: Date.now(),
       title: erpNewName.trim(),
       amount: parseFloat(erpNewAmount),
-      type: erpNewType
+      type: erpNewType,
     };
     setErpTransactions((prev) => [...prev, newTx]);
-    setErpNewName('');
-    setErpNewAmount('');
+    setErpNewName("");
+    setErpNewAmount("");
   };
 
   const handleDeleteErpTx = (id) => {
-    setErpTransactions((prev) => prev.filter(tx => tx.id !== id));
+    setErpTransactions((prev) => prev.filter((tx) => tx.id !== id));
   };
 
   // Calculate ERP Totals
-  const erpIncome = erpTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-  const erpExpense = erpTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+  const erpIncome = erpTransactions
+    .filter((t) => t.type === "income")
+    .reduce((sum, t) => sum + t.amount, 0);
+  const erpExpense = erpTransactions
+    .filter((t) => t.type === "expense")
+    .reduce((sum, t) => sum + t.amount, 0);
   const erpProfit = erpIncome - erpExpense;
 
   // Handle CRM Drag & Drop stages
   const moveCrmDeal = (id, direction) => {
-    const stages = ['lead', 'progress', 'done'];
-    const stageNames = { lead: 'Входящие', progress: 'В работе', done: 'Контракт закрыт' };
-    
+    const stages = ["lead", "progress", "done"];
+    const stageNames = {
+      lead: "Входящие",
+      progress: "В работе",
+      done: "Контракт закрыт",
+    };
+
     setCrmDeals((prevDeals) => {
       return prevDeals.map((deal) => {
         if (deal.id === id) {
@@ -213,19 +275,25 @@ export default function Services() {
           const nextIndex = currentIndex + direction;
           if (nextIndex >= 0 && nextIndex < stages.length) {
             const nextStage = stages[nextIndex];
-            const logMsg = `[SYSTEM] Сделка "${deal.client}" переведена на этап [${stageNames[nextStage]}]` + 
-              (nextStage === 'progress' ? ' -> Назначен техлид, создан приватный Slack-канал.' : '') +
-              (nextStage === 'done' ? ' -> Робот сформировал счет в 1С и отправил клиенту.' : '');
-            
+            const logMsg =
+              `[SYSTEM] Сделка "${deal.client}" переведена на этап [${stageNames[nextStage]}]` +
+              (nextStage === "progress"
+                ? " -> Назначен техлид, создан приватный Slack-канал."
+                : "") +
+              (nextStage === "done"
+                ? " -> Робот сформировал счет в 1С и отправил клиенту."
+                : "");
+
             setCrmLogs((prevLogs) => [logMsg, ...prevLogs.slice(0, 4)]);
 
             // Trigger visual CRM Toast notification
-            const toastMsg = nextStage === 'progress'
-              ? `Отправлено SMS клиенту ${deal.client} о старте работ.`
-              : nextStage === 'done'
-                ? `Робот сгенерировал счет для ${deal.client} и отправил в 1С.`
-                : `Сделка ${deal.client} перемещена в ${stageNames[nextStage]}.`;
-            
+            const toastMsg =
+              nextStage === "progress"
+                ? `Отправлено SMS клиенту ${deal.client} о старте работ.`
+                : nextStage === "done"
+                  ? `Робот сгенерировал счет для ${deal.client} и отправил в 1С.`
+                  : `Сделка ${deal.client} перемещена в ${stageNames[nextStage]}.`;
+
             setCrmToast(toastMsg);
             if (crmTimeoutRef.current) clearTimeout(crmTimeoutRef.current);
             crmTimeoutRef.current = setTimeout(() => {
@@ -240,6 +308,124 @@ export default function Services() {
     });
   };
 
+  // Backend Benchmark Simulator Trigger
+  const runBackendBenchmark = () => {
+    if (backendBenchmarking) return;
+    setBackendBenchmarking(true);
+    setBackendLogs([]);
+
+    const steps = [
+      { t: 200, m: "[gRPC] Создание gRPC каналов с бинарным Protobuf..." },
+      { t: 600, m: "[REDIS] Тестирование кэширования: Hit Rate 98.4% (0.4ms)..." },
+      { t: 1100, m: "[POSTGRES] Инициализация Connection Pool (64 соединения)..." },
+      { t: 1600, m: "[KAFKA] Проверка очередей сообщений: 14,200 msg/sec..." },
+      { t: 2100, m: "[SUCCESS] Бенчмарк завершен: 12,400 QPS, средняя задержка 8.4ms." },
+    ];
+
+    steps.forEach((step) => {
+      setTimeout(() => {
+        setBackendLogs((prev) => [...prev, step.m]);
+      }, step.t);
+    });
+
+    setTimeout(() => {
+      setBackendBenchmarking(false);
+    }, 2200);
+  };
+
+  // AI Assistant Simulator Trigger
+  const runAiSimulation = () => {
+    if (aiRunning) return;
+    setAiRunning(true);
+    setAiLogs([]);
+    setAiResult(null);
+
+    const steps =
+      aiScenario === "document"
+        ? [
+            { t: 300, m: "[OCR] Сканирование изображения / PDF документа..." },
+            { t: 700, m: "[VECTOR DB] Поиск сопоставлений в базе знаний ChromaDB..." },
+            { t: 1200, m: "[LLM] Запрос к GPT-4o (температура 0.1, max_tokens 512)..." },
+            { t: 1800, m: "[JSON] Парсинг реквизитов, сумм и позиций..." },
+          ]
+        : aiScenario === "chatbot"
+          ? [
+              { t: 300, m: "[INCOMING] Сообщение в WhatsApp: 'Сколько стоит разработка?'" },
+              { t: 700, m: "[NLP] Определение интента: inquiry_pricing (уверенность 99.1%)" },
+              { t: 1200, m: "[RAG] Извлечение прайс-листа из векторной базы..." },
+              { t: 1800, m: "[REPLY] Сгенерирован персонализированный ответ клиенту." },
+            ]
+          : [
+              { t: 300, m: "[LEAD] Поступила заявка через веб-форму #1042..." },
+              { t: 700, m: "[CLASSIFY] Оценка бюджета и срочности (Score: 92/100)..." },
+              { t: 1200, m: "[ROUTER] Назначен старший инженер (Enterprise tier)..." },
+              { t: 1800, m: "[NOTIFY] Пуш-нотификация отправлена в Telegram командный чат." },
+            ];
+
+    steps.forEach((step) => {
+      setTimeout(() => {
+        setAiLogs((prev) => [...prev, step.m]);
+      }, step.t);
+    });
+
+    setTimeout(() => {
+      setAiRunning(false);
+      if (aiScenario === "document") {
+        setAiResult({
+          docType: "Счет-фактура",
+          company: 'ТОО "КазахТехСтрой"',
+          amount: "1,450,000 ₸",
+          confidence: "99.4%",
+        });
+      } else if (aiScenario === "chatbot") {
+        setAiResult({
+          intent: "Оценка стоимости",
+          reply: "Здравствуйте! Веб-разработка от $2,800. Рассчитайте смету в 1 клик на нашем сайте.",
+          confidence: "98.8%",
+        });
+      } else {
+        setAiResult({
+          leadScore: "95 / 100",
+          tier: "Enterprise (Срочно)",
+          assignedTo: "Lead Systems Architect",
+          status: "ROUTED_TO_TELEGRAM",
+        });
+      }
+    }, 2000);
+  };
+
+  // Support SLA Health Check Trigger
+  const runSupportCheck = () => {
+    if (supportTesting) return;
+    setSupportTesting(true);
+    setSupportLogs([]);
+
+    const steps = [
+      { t: 200, m: "[SLA PING] Пинг глобальной CDN сети Edge-серверов..." },
+      { t: 600, m: "[SSL CHECK] Проверка сертификатов TLS 1.3 (320 дней остатка)..." },
+      { t: 1100, m: "[BACKUP] Запуск контрольной точки бэкапа PostgreSQL S3..." },
+      { t: 1600, m: "[DEVOPS] Оценка утилизации ресурсов Kubernetes Pods..." },
+      { t: 2100, m: "[ALL GREEN] Все узлы функционируют штатно. SLA 99.99% соблюден." },
+    ];
+
+    steps.forEach((step) => {
+      setTimeout(() => {
+        setSupportLogs((prev) => [...prev, step.m]);
+      }, step.t);
+    });
+
+    setTimeout(() => {
+      setSupportTesting(false);
+      setSupportNodes((prev) =>
+        prev.map((n) => ({
+          ...n,
+          ping: Math.max(2, n.ping + Math.floor((Math.random() - 0.5) * 4)),
+          cpu: Math.max(8, n.cpu + Math.floor((Math.random() - 0.5) * 6)),
+        })),
+      );
+    }, 2200);
+  };
+
   // Pricing calculations
   const calculatePricing = () => {
     let basePrice = 0;
@@ -248,27 +434,27 @@ export default function Services() {
     let expressMultiplier = 1;
 
     switch (activeTab) {
-      case 'websites':
+      case "websites":
         basePrice = 2800;
         baseTime = 20;
         break;
-      case 'mobile':
+      case "mobile":
         basePrice = 5500;
         baseTime = 35;
         break;
-      case 'erp':
+      case "erp":
         basePrice = 9800;
         baseTime = 50;
         break;
-      case 'backend':
+      case "backend":
         basePrice = 6200;
         baseTime = 30;
         break;
-      case 'ai':
+      case "ai":
         basePrice = 4500;
         baseTime = 25;
         break;
-      case 'support':
+      case "support":
         basePrice = 1800;
         baseTime = 14;
         break;
@@ -277,21 +463,25 @@ export default function Services() {
         baseTime = 20;
     }
 
-    if (estimatorScale === 'small') {
+    if (estimatorScale === "small") {
       scaleMultiplier = 0.7;
-    } else if (estimatorScale === 'enterprise') {
+    } else if (estimatorScale === "enterprise") {
       scaleMultiplier = 1.6;
     }
 
-    if (estimatorSpeed === 'express') {
+    if (estimatorSpeed === "express") {
       expressMultiplier = 1.35; // Express charges premium
     }
 
     const integrationsCost = estimatorIntegrations * 600;
-    const finalPrice = Math.round((basePrice * scaleMultiplier + integrationsCost) * expressMultiplier);
-    
-    let finalTime = Math.round((baseTime * scaleMultiplier) + (estimatorIntegrations * 2));
-    if (estimatorSpeed === 'express') {
+    const finalPrice = Math.round(
+      (basePrice * scaleMultiplier + integrationsCost) * expressMultiplier,
+    );
+
+    let finalTime = Math.round(
+      baseTime * scaleMultiplier + estimatorIntegrations * 2,
+    );
+    if (estimatorSpeed === "express") {
       finalTime = Math.round(finalTime * 0.65); // 35% time reduction
     }
 
@@ -302,36 +492,37 @@ export default function Services() {
 
   const handleOrderClick = () => {
     const serviceNames = {
-      websites: 'development',
-      mobile: 'development',
-      erp: 'architecture',
-      backend: 'architecture',
-      ai: 'development',
-      support: 'devops'
+      websites: "development",
+      mobile: "development",
+      erp: "architecture",
+      backend: "architecture",
+      ai: "development",
+      support: "devops",
     };
 
     const serviceLabels = {
-      websites: '🌐 Веб-разработка',
-      mobile: '📱 Мобильные приложения',
-      erp: '⚙️ Корпоративные системы (CRM/ERP)',
-      backend: '☁️ Backend и API',
-      ai: '🤖 AI и автоматизация',
-      support: '🚀 Поддержка и развитие'
+      websites: "Веб-разработка",
+      mobile: "Мобильные приложения",
+      erp: "Корпоративные системы (CRM/ERP)",
+      backend: "Backend и API",
+      ai: "AI и автоматизация",
+      support: "Поддержка и развитие",
     };
 
-    const messageText = `Здравствуйте! Хочу обсудить разработку проекта:\n` +
+    const messageText =
+      `Здравствуйте! Хочу обсудить разработку проекта:\n` +
       `- Направление: ${serviceLabels[activeTab]}\n` +
-      `- Масштаб: ${estimatorScale === 'small' ? 'Стартап / MVP' : estimatorScale === 'medium' ? 'Бизнес-версия' : 'Корпоративный масштаб'}\n` +
-      `- Срочность: ${estimatorSpeed === 'express' ? 'Экспресс (ускоренная)' : 'Стандартный график'}\n` +
+      `- Масштаб: ${estimatorScale === "small" ? "Стартап / MVP" : estimatorScale === "medium" ? "Бизнес-версия" : "Корпоративный масштаб"}\n` +
+      `- Срочность: ${estimatorSpeed === "express" ? "Экспресс (ускоренная)" : "Стандартный график"}\n` +
       `- Интеграции: ${estimatorIntegrations} внешних сервисов\n` +
       `- Предварительный расчет: ~$${estimatedPrice} (${estimatedTime} дней)`;
 
     // Dispatch the custom event to ContactForm
-    const event = new CustomEvent('configure-project', {
+    const event = new CustomEvent("configure-project", {
       detail: {
         service: serviceNames[activeTab],
-        messageText: messageText
-      }
+        messageText: messageText,
+      },
     });
     window.dispatchEvent(event);
   };
@@ -339,101 +530,166 @@ export default function Services() {
   // Content for the selected tab
   const getTabDetails = () => {
     switch (activeTab) {
-      case 'websites':
+      case "websites":
         return {
-          title: '🌐 Веб-разработка',
-          tagline: 'Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.',
-          longDesc: 'Разрабатываем корпоративные порталы, Headless E-commerce площадки и информационные сервисы. Мгновенный рендеринг, идеальная верстка под мобильные устройства, интеграции с Kaspi QR / Stripe и 100% готовность к SEO-продвижению.',
-          tech: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Headless CMS', 'Kaspi Pay'],
-          limitLabel: 'Количество страниц / модулей',
+          title: "Веб-разработка",
+          icon: Globe,
+          tagline:
+            "Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.",
+          longDesc:
+            "Разрабатываем корпоративные порталы, Headless E-commerce площадки и информационные сервисы. Мгновенный рендеринг, идеальная верстка под мобильные устройства, интеграции с Kaspi QR / Stripe и 100% готовность к SEO-продвижению.",
+          tech: [
+            "Next.js",
+            "React 19",
+            "TypeScript",
+            "Tailwind CSS",
+            "Vite",
+            "Headless CMS",
+            "Kaspi Pay",
+          ],
+          limitLabel: "Количество страниц / модулей",
           minLimit: 1,
           maxLimit: 15,
           subCategories: [
-            'Корпоративные сайты и холдинги',
-            'Интернет-магазины & E-commerce',
-            'Высококонверсионные лендинги',
-            'PWA и Web Applications (SSR)'
-          ]
+            "Корпоративные сайты и холдинги",
+            "Интернет-магазины & E-commerce",
+            "Высококонверсионные лендинги",
+            "PWA и Web Applications (SSR)",
+          ],
         };
-      case 'mobile':
+      case "mobile":
         return {
-          title: '📱 Мобильные приложения',
-          tagline: 'Нативные и кроссплатформенные приложения для iOS и Android.',
-          longDesc: 'Создаем быстродействующие мобильные продукты для работы с клиентами и сотрудниками. От платежных систем и сканеров штрих-кодов до личных кабинетов с офлайн-режимом и биометрией.',
-          tech: ['Flutter', 'React Native', 'Swift (iOS)', 'Kotlin (Android)', 'Push API', 'Biometrics', 'Firebase'],
-          limitLabel: 'Интеграции нативных модулей / API',
+          title: "Мобильные приложения",
+          icon: Smartphone,
+          tagline:
+            "Нативные и кроссплатформенные приложения для iOS и Android.",
+          longDesc:
+            "Создаем быстродействующие мобильные продукты для работы с клиентами и сотрудниками. От платежных систем и сканеров штрих-кодов до личных кабинетов с офлайн-режимом и биометрией.",
+          tech: [
+            "Flutter",
+            "React Native",
+            "Swift (iOS)",
+            "Kotlin (Android)",
+            "Push API",
+            "Biometrics",
+            "Firebase",
+          ],
+          limitLabel: "Интеграции нативных модулей / API",
           minLimit: 1,
           maxLimit: 10,
           subCategories: [
-            'iOS & Android приложения',
-            'Клиентские личные кабинеты',
-            'Приложения для курьеров и склада',
-            'Мобильный эквайринг & QR push'
-          ]
+            "iOS & Android приложения",
+            "Клиентские личные кабинеты",
+            "Приложения для курьеров и склада",
+            "Мобильный эквайринг & QR push",
+          ],
         };
-      case 'erp':
+      case "erp":
         return {
-          title: '⚙️ Корпоративные системы (CRM & ERP)',
-          tagline: 'CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.',
-          longDesc: 'Устраняем рутину и хаос в Excel. Объединяем продажи, складские остатки, закупки, финансы и работу персонала в единую систему с автоматической генерацией документов и триггерами в мессенджеры.',
-          tech: ['NestJS', 'PostgreSQL', 'Docker', '1C API', 'Telegram Bots', 'WhatsApp API', 'Redis'],
-          limitLabel: 'Связанные бизнес-модули / отделы',
+          title: "Корпоративные системы (CRM & ERP)",
+          icon: Settings,
+          tagline:
+            "CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.",
+          longDesc:
+            "Устраняем рутину и хаос в Excel. Объединяем продажи, складские остатки, закупки, финансы и работу персонала в единую систему с автоматической генерацией документов и триггерами в мессенджеры.",
+          tech: [
+            "NestJS",
+            "PostgreSQL",
+            "Docker",
+            "1C API",
+            "Telegram Bots",
+            "WhatsApp API",
+            "Redis",
+          ],
+          limitLabel: "Связанные бизнес-модули / отделы",
           minLimit: 2,
           maxLimit: 12,
           subCategories: [
-            'Кастомные CRM воронки продаж',
-            'ERP системы учета складов и ТМЦ',
-            'Личные кабинеты партнеров и дилеров',
-            'BPM автоматизация согласований'
-          ]
+            "Кастомные CRM воронки продаж",
+            "ERP системы учета складов и ТМЦ",
+            "Личные кабинеты партнеров и дилеров",
+            "BPM автоматизация согласований",
+          ],
         };
-      case 'backend':
+      case "backend":
         return {
-          title: '☁️ Backend и API',
-          tagline: 'Надежная серверная часть, интеграции и масштабируемая архитектура.',
-          longDesc: 'Проектируем отказоустойчивые микросервисы и распределенные СУБД, выдерживающие высокие нагрузки и пиковый трафик. Разворачиваем защищенные REST, gRPC и GraphQL API.',
-          tech: ['Go (Golang)', 'Node.js', 'PostgreSQL', 'Redis', 'gRPC', 'Kafka / RabbitMQ', 'Docker'],
-          limitLabel: 'Количество микросервисов / интеграций',
+          title: "Backend и API",
+          icon: Cloud,
+          tagline:
+            "Надежная серверная часть, интеграции и масштабируемая архитектура.",
+          longDesc:
+            "Проектируем отказоустойчивые микросервисы и распределенные СУБД, выдерживающие высокие нагрузки и пиковый трафик. Разворачиваем защищенные REST, gRPC и GraphQL API.",
+          tech: [
+            "Go (Golang)",
+            "Node.js",
+            "PostgreSQL",
+            "Redis",
+            "gRPC",
+            "Kafka / RabbitMQ",
+            "Docker",
+          ],
+          limitLabel: "Количество микросервисов / интеграций",
           minLimit: 1,
           maxLimit: 10,
           subCategories: [
-            'Высоконагруженные REST & gRPC API',
-            'Микросервисная архитектура',
-            'Интеграции банк-клиентов и 1С',
-            'Кэширование & Оптимизация СУБД'
-          ]
+            "Высоконагруженные REST & gRPC API",
+            "Микросервисная архитектура",
+            "Интеграции банк-клиентов и 1С",
+            "Кэширование & Оптимизация СУБД",
+          ],
         };
-      case 'ai':
+      case "ai":
         return {
-          title: '🤖 AI и автоматизация',
-          tagline: 'Внедрение ИИ, чат-ботов и автоматизация рутинных задач.',
-          longDesc: 'Внедряем современные нейросети и умных ассистентов в ваши бизнес-процессы. Консультации пользователей 24/7 в WhatsApp/Telegram, авто-обработка заявок и парсинг первичных документов.',
-          tech: ['OpenAI / GPT-4', 'Claude API', 'Python', 'Vector DB', 'LangChain', 'Telegram API', 'WhatsApp Bot'],
-          limitLabel: 'Автоматизированные AI-сценарии',
+          title: "AI и автоматизация",
+          icon: Bot,
+          tagline: "Внедрение ИИ, чат-ботов и автоматизация рутинных задач.",
+          longDesc:
+            "Внедряем современные нейросети и умных ассистентов в ваши бизнес-процессы. Консультации пользователей 24/7 в WhatsApp/Telegram, авто-обработка заявок и парсинг первичных документов.",
+          tech: [
+            "OpenAI / GPT-4",
+            "Claude API",
+            "Python",
+            "Vector DB",
+            "LangChain",
+            "Telegram API",
+            "WhatsApp Bot",
+          ],
+          limitLabel: "Автоматизированные AI-сценарии",
           minLimit: 1,
           maxLimit: 8,
           subCategories: [
-            'Умные чат-боты WhatsApp & Telegram',
-            'LLM ассистенты по базе знаний',
-            'Распознавание документов и счетов',
-            'Интеллектуальная маршрутизация лидов'
-          ]
+            "Умные чат-боты WhatsApp & Telegram",
+            "LLM ассистенты по базе знаний",
+            "Распознавание документов и счетов",
+            "Интеллектуальная маршрутизация лидов",
+          ],
         };
-      case 'support':
+      case "support":
         return {
-          title: '🚀 Поддержка и развитие',
-          tagline: 'Сопровождение, развитие продукта и техническая поддержка после запуска.',
-          longDesc: 'Обеспечиваем бесперебойную работу ваших сервисов 24/7. Регулярные бэкапы, мониторинг нагрузки, оперативное устранение сбоев, доработка нового функционала и контроль безопасности.',
-          tech: ['Prometheus', 'Grafana', 'CI/CD Pipelines', 'AWS / Cloudflare', 'Nginx', 'SLA 99.99%', 'Linux Admin'],
-          limitLabel: 'Часов доработок в месяц',
+          title: "Поддержка и развитие",
+          icon: Rocket,
+          tagline:
+            "Сопровождение, развитие продукта и техническая поддержка после запуска.",
+          longDesc:
+            "Обеспечиваем бесперебойную работу ваших сервисов 24/7. Регулярные бэкапы, мониторинг нагрузки, оперативное устранение сбоев, доработка нового функционала и контроль безопасности.",
+          tech: [
+            "Prometheus",
+            "Grafana",
+            "CI/CD Pipelines",
+            "AWS / Cloudflare",
+            "Nginx",
+            "SLA 99.99%",
+            "Linux Admin",
+          ],
+          limitLabel: "Часов доработок в месяц",
           minLimit: 5,
           maxLimit: 40,
           subCategories: [
-            '24/7 SLA мониторинг и алерты',
-            'Регулярные обновления и фиксы',
-            'DevOps и настройка серверов',
-            'Аудит безопасности и резервирование'
-          ]
+            "24/7 SLA мониторинг и алерты",
+            "Регулярные обновления и фиксы",
+            "DevOps и настройка серверов",
+            "Аудит безопасности и резервирование",
+          ],
         };
       default:
         return {};
@@ -445,200 +701,366 @@ export default function Services() {
   return (
     <section id="services" className="services-section">
       <div className="container">
-        
         {/* Header */}
         <div className="section-header animate-fade-in">
           <span className="mono-label">ИНЖЕНЕРНЫЕ РЕШЕНИЯ // НАПРАВЛЕНИЯ</span>
-          <h2 className="section-subtitle" style={{ fontSize: '2.25rem', marginTop: '8px' }}>
+          <h2
+            className="section-subtitle"
+            style={{ fontSize: "2.25rem", marginTop: "8px" }}
+          >
             Разрабатываем цифровые продукты любого масштаба
           </h2>
-          <div style={{
-            fontSize: '1rem',
-            fontFamily: 'var(--font-heading)',
-            color: 'var(--success)',
-            fontWeight: 600,
-            marginTop: '4px'
-          }}>
-            Наши услуги — Экспертиза
-          </div>
-          <p style={{ maxWidth: '750px', fontSize: '0.95rem', marginTop: '8px', lineHeight: 1.6 }}>
-            Проектируем и создаем решения, которые помогают бизнесу расти: от корпоративных сайтов до сложных веб-платформ, мобильных приложений и внутренних систем. Каждое решение разрабатывается с учетом ваших задач, будущего роста и долгосрочной поддержки.
+          <p
+            style={{
+              maxWidth: "750px",
+              fontSize: "0.95rem",
+              marginTop: "8px",
+              lineHeight: 1.6,
+            }}
+          >
+            Проектируем и создаем решения, которые помогают бизнесу расти: от
+            корпоративных сайтов до сложных веб-платформ, мобильных приложений и
+            внутренних систем. Каждое решение разрабатывается с учетом ваших
+            задач, будущего роста и долгосрочной поддержки.
           </p>
         </div>
 
         {/* 6 Directions Showcase Cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: 'var(--space-3)',
-          marginBottom: 'var(--space-6)'
-        }} className="animate-fade-in">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "var(--space-3)",
+            marginBottom: "var(--space-6)",
+          }}
+          className="animate-fade-in"
+        >
           {[
             {
-              id: 'websites',
-              title: '🌐 Веб-разработка',
-              desc: 'Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.',
-              items: ['Корпоративные порталы', 'Headless E-commerce', 'SSR & PWA приложения', 'Высокая конверсия']
+              id: "websites",
+              title: "Веб-разработка",
+              icon: Globe,
+              desc: "Современные сайты, интернет-магазины и веб-сервисы для развития вашего бизнеса.",
+              items: [
+                "Корпоративные порталы",
+                "Headless E-commerce",
+                "SSR & PWA приложения",
+                "Высокая конверсия",
+              ],
             },
             {
-              id: 'mobile',
-              title: '📱 Мобильные приложения',
-              desc: 'Нативные и кроссплатформенные приложения для iOS и Android.',
-              items: ['Swift & Kotlin натив', 'Flutter / React Native', 'Офлайн режим & Push', 'Kaspi Pay / QR']
+              id: "mobile",
+              title: "Мобильные приложения",
+              icon: Smartphone,
+              desc: "Нативные и кроссплатформенные приложения для iOS и Android.",
+              items: [
+                "Swift & Kotlin натив",
+                "Flutter / React Native",
+                "Офлайн режим & Push",
+                "Kaspi Pay / QR",
+              ],
             },
             {
-              id: 'erp',
-              title: '⚙️ Корпоративные системы',
-              desc: 'CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.',
-              items: ['CRM воронки продаж', 'Учет склада и ТМЦ', 'Личные кабинеты дилеров', 'Интеграция с 1С']
+              id: "erp",
+              title: "Корпоративные системы",
+              icon: Settings,
+              desc: "CRM, ERP, личные кабинеты и решения для автоматизации бизнес-процессов.",
+              items: [
+                "CRM воронки продаж",
+                "Учет склада и ТМЦ",
+                "Личные кабинеты дилеров",
+                "Интеграция с 1С",
+              ],
             },
             {
-              id: 'backend',
-              title: '☁️ Backend и API',
-              desc: 'Надежная серверная часть, интеграции и масштабируемая архитектура.',
-              items: ['Golang & Node.js API', 'Микросервисы & gRPC', 'High-load оптимизация', 'Kafka & RabbitMQ']
+              id: "backend",
+              title: "Backend и API",
+              icon: Cloud,
+              desc: "Надежная серверная часть, интеграции и масштабируемая архитектура.",
+              items: [
+                "Golang & Node.js API",
+                "Микросервисы & gRPC",
+                "High-load оптимизация",
+                "Kafka & RabbitMQ",
+              ],
             },
             {
-              id: 'ai',
-              title: '🤖 AI и автоматизация',
-              desc: 'Внедрение ИИ, чат-ботов и автоматизация рутинных задач.',
-              items: ['GPT-4 & Claude ассистенты', 'Боты WhatsApp & TG', 'Обработка документов', 'RPA роботы']
+              id: "ai",
+              title: "AI и автоматизация",
+              icon: Bot,
+              desc: "Внедрение ИИ, чат-ботов и автоматизация рутинных задач.",
+              items: [
+                "GPT-4 & Claude ассистенты",
+                "Боты WhatsApp & TG",
+                "Обработка документов",
+                "RPA роботы",
+              ],
             },
             {
-              id: 'support',
-              title: '🚀 Поддержка и развитие',
-              desc: 'Сопровождение, развитие продукта и техническая поддержка после запуска.',
-              items: ['24/7 SLA мониторинг', 'DevOps & CI/CD деплой', 'Аудит безопасности', 'Регулярные апдейты']
-            }
-          ].map((card) => (
-            <div
-              key={card.id}
-              onClick={() => {
-                setActiveTab(card.id);
-                const calcEl = document.getElementById('calculator');
-                if (calcEl) calcEl.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="service-card"
-              style={{
-                cursor: 'pointer',
-                borderColor: activeTab === card.id ? 'var(--text-primary)' : 'var(--border-primary)'
-              }}
-            >
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '6px', fontWeight: 600 }}>{card.title}</h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '12px' }}>
-                {card.desc}
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto' }}>
-                {card.items.map((it, idx) => (
-                  <span key={idx} style={{
-                    fontSize: '0.7rem',
-                    fontFamily: 'var(--font-mono)',
-                    backgroundColor: 'var(--bg-tertiary)',
-                    border: '1px solid var(--border-primary)',
-                    padding: '2px 6px',
-                    borderRadius: '2px',
-                    color: 'var(--text-primary)'
-                  }}>
-                    • {it}
-                  </span>
-                ))}
+              id: "support",
+              title: "Поддержка и развитие",
+              icon: Rocket,
+              desc: "Сопровождение, развитие продукта и техническая поддержка после запуска.",
+              items: [
+                "24/7 SLA мониторинг",
+                "DevOps & CI/CD деплой",
+                "Аудит безопасности",
+                "Регулярные апдейты",
+              ],
+            },
+          ].map((card) => {
+            const Icon = card.icon;
+            return (
+              <div
+                key={card.id}
+                onClick={() => {
+                  setActiveTab(card.id);
+                  const calcEl = document.getElementById("calculator");
+                  if (calcEl) calcEl.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="service-card"
+                style={{
+                  cursor: "pointer",
+                  borderColor:
+                    activeTab === card.id
+                      ? "var(--text-primary)"
+                      : "var(--border-primary)",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "1.25rem",
+                    marginBottom: "6px",
+                    fontWeight: 600,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <Icon size={20} />
+                  <span>{card.title}</span>
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "var(--text-secondary)",
+                    lineHeight: 1.5,
+                    marginBottom: "12px",
+                  }}
+                >
+                  {card.desc}
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "6px",
+                    marginTop: "auto",
+                  }}
+                >
+                  {card.items.map((it, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        fontSize: "0.7rem",
+                        fontFamily: "var(--font-mono)",
+                        backgroundColor: "var(--bg-tertiary)",
+                        border: "1px solid var(--border-primary)",
+                        padding: "2px 6px",
+                        borderRadius: "2px",
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      • {it}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Calculator Anchor Container */}
-        <div id="calculator" style={{ paddingTop: '20px' }}>
-          <div style={{ marginBottom: '16px', textAlign: 'left' }}>
+        <div id="calculator" style={{ paddingTop: "20px" }}>
+          <div style={{ marginBottom: "16px", textAlign: "left" }}>
             <span className="mono-label">ИНТЕРАКТИВНЫЙ РАСЧЕТ // СМЕТА</span>
-            <h3 style={{ fontSize: '1.75rem', marginTop: '4px' }}>Калькулятор стоимости и сроков</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-              Выберите нужное направление ниже, чтобы настроить параметры вашего проекта и получить детальную смету.
+            <h3 style={{ fontSize: "1.75rem", marginTop: "4px" }}>
+              Калькулятор стоимости и сроков
+            </h3>
+            <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
+              Выберите нужное направление ниже, чтобы настроить параметры вашего
+              проекта и получить детальную смету.
             </p>
           </div>
 
           {/* Tab Switcher Buttons */}
-          <div className="animate-fade-in" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '8px',
-            marginBottom: 'var(--space-4)'
-          }}>
+          <div
+            className="animate-fade-in"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+              gap: "8px",
+              marginBottom: "var(--space-4)",
+            }}
+          >
             {[
-              { id: 'websites', label: '🌐 Веб-разработка' },
-              { id: 'mobile', label: '📱 Мобильные' },
-              { id: 'erp', label: '⚙️ CRM & ERP' },
-              { id: 'backend', label: '☁️ Backend & API' },
-              { id: 'ai', label: '🤖 AI & ИИ' },
-              { id: 'support', label: '🚀 Поддержка' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px',
-                  padding: 'var(--space-2) var(--space-2)',
-                  borderRadius: 'var(--radius-sm)',
-                  backgroundColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--bg-secondary)',
-                  color: activeTab === tab.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                  border: '1px solid',
-                  borderColor: activeTab === tab.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
+              { id: "websites", label: "Веб-разработка", icon: Globe },
+              { id: "mobile", label: "Мобильные", icon: Smartphone },
+              { id: "erp", label: "CRM & ERP", icon: Settings },
+              { id: "backend", label: "Backend & API", icon: Cloud },
+              { id: "ai", label: "AI & ИИ", icon: Bot },
+              { id: "support", label: "Поддержка", icon: Rocket },
+            ].map((tab) => {
+              const TabIcon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "6px",
+                    padding: "var(--space-2) var(--space-2)",
+                    borderRadius: "var(--radius-sm)",
+                    backgroundColor:
+                      activeTab === tab.id
+                        ? "var(--text-primary)"
+                        : "var(--bg-secondary)",
+                    color:
+                      activeTab === tab.id
+                        ? "var(--bg-primary)"
+                        : "var(--text-secondary)",
+                    border: "1px solid",
+                    borderColor:
+                      activeTab === tab.id
+                        ? "var(--text-primary)"
+                        : "var(--border-primary)",
+                    fontFamily: "var(--font-heading)",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                >
+                  <TabIcon size={16} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Tab Detailed View Workspace */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.1fr 0.9fr',
-            gap: 'var(--space-4)',
-            alignItems: 'stretch'
-          }} className="services-grid-layout">
-            
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1.1fr 0.9fr",
+              gap: "var(--space-4)",
+              alignItems: "stretch",
+            }}
+            className="services-grid-layout"
+          >
             {/* LEFT: Service description & pricing tool */}
-            <div style={{
-              backgroundColor: 'var(--bg-secondary)',
-              border: '1px solid var(--border-primary)',
-              borderRadius: 'var(--radius-md)',
-              padding: 'var(--space-4)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              textAlign: 'left'
-            }} className="animate-fade-in">
+            <div
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                border: "1px solid var(--border-primary)",
+                borderRadius: "var(--radius-md)",
+                padding: "var(--space-4)",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                textAlign: "left",
+              }}
+              className="animate-fade-in"
+            >
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--success)', fontSize: '0.7rem', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  <span className="pulse-indicator" /> ACTIVE SPECIFICATION // READY
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    color: "var(--success)",
+                    fontSize: "0.7rem",
+                    fontFamily: "var(--font-mono)",
+                    textTransform: "uppercase",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <span className="pulse-indicator" /> ACTIVE SPECIFICATION //
+                  READY
                 </div>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>{details.title}</h3>
-                <p style={{ color: 'var(--text-primary)', fontWeight: 500, fontSize: '0.95rem', marginBottom: '12px', lineHeight: 1.4 }}>
+                <h3
+                  style={{
+                    fontSize: "1.5rem",
+                    marginBottom: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  {details.icon && <details.icon size={22} />}
+                  <span>{details.title}</span>
+                </h3>
+                <p
+                  style={{
+                    color: "var(--text-primary)",
+                    fontWeight: 500,
+                    fontSize: "0.95rem",
+                    marginBottom: "12px",
+                    lineHeight: 1.4,
+                  }}
+                >
                   {details.tagline}
                 </p>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>
+                <p
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "var(--text-secondary)",
+                    marginBottom: "16px",
+                    lineHeight: 1.6,
+                  }}
+                >
                   {details.longDesc}
                 </p>
 
                 {/* Subcategories bullet breakdown */}
                 {details.subCategories && (
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.05em' }}>
+                  <div style={{ marginBottom: "16px" }}>
+                    <div
+                      style={{
+                        fontSize: "0.75rem",
+                        fontFamily: "var(--font-heading)",
+                        color: "var(--text-muted)",
+                        textTransform: "uppercase",
+                        marginBottom: "6px",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
                       Детальный состав услуг:
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "6px",
+                      }}
+                    >
                       {details.subCategories.map((sub, idx) => (
-                        <div key={idx} style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <CheckCircle2 size={12} style={{ color: 'var(--success)', flexShrink: 0 }} />
+                        <div
+                          key={idx}
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--text-secondary)",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px",
+                          }}
+                        >
+                          <CheckCircle2
+                            size={12}
+                            style={{ color: "var(--success)", flexShrink: 0 }}
+                          />
                           <span>{sub}</span>
                         </div>
                       ))}
@@ -647,21 +1069,35 @@ export default function Services() {
                 )}
 
                 {/* Technologies List */}
-                <div style={{ marginBottom: '20px' }}>
-                  <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-heading)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>
+                <div style={{ marginBottom: "20px" }}>
+                  <div
+                    style={{
+                      fontSize: "0.75rem",
+                      fontFamily: "var(--font-heading)",
+                      color: "var(--text-muted)",
+                      textTransform: "uppercase",
+                      marginBottom: "8px",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
                     Стек технологий:
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}
+                  >
                     {details.tech?.map((t) => (
-                      <span key={t} style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
-                        color: 'var(--text-primary)',
-                        backgroundColor: 'var(--bg-tertiary)',
-                        border: '1px solid var(--border-primary)',
-                        padding: '4px 8px',
-                        borderRadius: '2px'
-                      }}>
+                      <span
+                        key={t}
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.7rem",
+                          color: "var(--text-primary)",
+                          backgroundColor: "var(--bg-tertiary)",
+                          border: "1px solid var(--border-primary)",
+                          padding: "4px 8px",
+                          borderRadius: "2px",
+                        }}
+                      >
                         {t}
                       </span>
                     ))}
@@ -670,25 +1106,43 @@ export default function Services() {
               </div>
 
               {/* Price Configurator Tool */}
-              <div style={{
-                borderTop: '1px solid var(--border-dim)',
-                paddingTop: '16px',
-                marginTop: '12px'
-              }}>
-                <h4 style={{ fontSize: '0.85rem', marginBottom: '14px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+              <div
+                style={{
+                  borderTop: "1px solid var(--border-dim)",
+                  paddingTop: "16px",
+                  marginTop: "12px",
+                }}
+              >
+                <h4
+                  style={{
+                    fontSize: "0.85rem",
+                    marginBottom: "14px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    color: "var(--text-secondary)",
+                  }}
+                >
                   Параметры сметы проекта
                 </h4>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
-                  
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                    marginBottom: "20px",
+                  }}
+                >
                   {/* Scale selection */}
                   <div>
-                    <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Масштаб реализации</label>
-                    <div style={{ display: 'flex', gap: '6px' }}>
+                    <label style={{ fontSize: "0.75rem", marginBottom: "6px" }}>
+                      Масштаб реализации
+                    </label>
+                    <div style={{ display: "flex", gap: "6px" }}>
                       {[
-                        { id: 'small', label: 'MVP / Стартап' },
-                        { id: 'medium', label: 'Бизнес-версия' },
-                        { id: 'enterprise', label: 'Enterprise' }
+                        { id: "small", label: "MVP / Стартап" },
+                        { id: "medium", label: "Бизнес-версия" },
+                        { id: "enterprise", label: "Enterprise" },
                       ].map((opt) => (
                         <button
                           key={opt.id}
@@ -696,16 +1150,25 @@ export default function Services() {
                           onClick={() => setEstimatorScale(opt.id)}
                           style={{
                             flex: 1,
-                            padding: '6px 8px',
-                            fontSize: '0.75rem',
-                            fontFamily: 'var(--font-sans)',
-                            borderRadius: '4px',
-                            border: '1px solid',
-                            borderColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                            backgroundColor: estimatorScale === opt.id ? 'var(--text-primary)' : 'transparent',
-                            color: estimatorScale === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                            cursor: 'pointer',
-                            transition: 'all 0.15s ease'
+                            padding: "6px 8px",
+                            fontSize: "0.75rem",
+                            fontFamily: "var(--font-sans)",
+                            borderRadius: "4px",
+                            border: "1px solid",
+                            borderColor:
+                              estimatorScale === opt.id
+                                ? "var(--text-primary)"
+                                : "var(--border-primary)",
+                            backgroundColor:
+                              estimatorScale === opt.id
+                                ? "var(--text-primary)"
+                                : "transparent",
+                            color:
+                              estimatorScale === opt.id
+                                ? "var(--bg-primary)"
+                                : "var(--text-secondary)",
+                            cursor: "pointer",
+                            transition: "all 0.15s ease",
                           }}
                         >
                           {opt.label}
@@ -716,9 +1179,23 @@ export default function Services() {
 
                   {/* Slider for Integrations */}
                   <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <label style={{ fontSize: '0.75rem', margin: 0 }}>{details.limitLabel}</label>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--success)' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      <label style={{ fontSize: "0.75rem", margin: 0 }}>
+                        {details.limitLabel}
+                      </label>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "0.75rem",
+                          color: "var(--success)",
+                        }}
+                      >
                         {estimatorIntegrations}
                       </span>
                     </div>
@@ -727,26 +1204,30 @@ export default function Services() {
                       min={details.minLimit}
                       max={details.maxLimit}
                       value={estimatorIntegrations}
-                      onChange={(e) => setEstimatorIntegrations(parseInt(e.target.value))}
+                      onChange={(e) =>
+                        setEstimatorIntegrations(parseInt(e.target.value))
+                      }
                       style={{
-                        height: '4px',
-                        width: '100%',
-                        background: 'var(--border-primary)',
-                        accentColor: 'var(--text-primary)',
-                        outline: 'none',
+                        height: "4px",
+                        width: "100%",
+                        background: "var(--border-primary)",
+                        accentColor: "var(--text-primary)",
+                        outline: "none",
                         padding: 0,
-                        cursor: 'pointer'
+                        cursor: "pointer",
                       }}
                     />
                   </div>
 
                   {/* Speed toggle */}
                   <div>
-                    <label style={{ fontSize: '0.75rem', marginBottom: '6px' }}>Сроки разработки</label>
-                    <div style={{ display: 'flex', gap: '6px' }}>
+                    <label style={{ fontSize: "0.75rem", marginBottom: "6px" }}>
+                      Сроки разработки
+                    </label>
+                    <div style={{ display: "flex", gap: "6px" }}>
                       {[
-                        { id: 'normal', label: 'Стандартный график' },
-                        { id: 'express', label: 'Экспресс-деплой (+35%)' }
+                        { id: "normal", label: "Стандартный график" },
+                        { id: "express", label: "Экспресс-деплой (+35%)" },
                       ].map((opt) => (
                         <button
                           key={opt.id}
@@ -754,16 +1235,25 @@ export default function Services() {
                           onClick={() => setEstimatorSpeed(opt.id)}
                           style={{
                             flex: 1,
-                            padding: '6px 8px',
-                            fontSize: '0.75rem',
-                            fontFamily: 'var(--font-sans)',
-                            borderRadius: '4px',
-                            border: '1px solid',
-                            borderColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'var(--border-primary)',
-                            backgroundColor: estimatorSpeed === opt.id ? 'var(--text-primary)' : 'transparent',
-                            color: estimatorSpeed === opt.id ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                            cursor: 'pointer',
-                            transition: 'all 0.15s ease'
+                            padding: "6px 8px",
+                            fontSize: "0.75rem",
+                            fontFamily: "var(--font-sans)",
+                            borderRadius: "4px",
+                            border: "1px solid",
+                            borderColor:
+                              estimatorSpeed === opt.id
+                                ? "var(--text-primary)"
+                                : "var(--border-primary)",
+                            backgroundColor:
+                              estimatorSpeed === opt.id
+                                ? "var(--text-primary)"
+                                : "transparent",
+                            color:
+                              estimatorSpeed === opt.id
+                                ? "var(--bg-primary)"
+                                : "var(--text-secondary)",
+                            cursor: "pointer",
+                            transition: "all 0.15s ease",
                           }}
                         >
                           {opt.label}
@@ -771,33 +1261,62 @@ export default function Services() {
                       ))}
                     </div>
                   </div>
-
                 </div>
 
                 {/* Estimate results display */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: 'var(--space-2) var(--space-3)',
-                  backgroundColor: 'var(--bg-tertiary)',
-                  border: '1px solid var(--border-primary)',
-                  borderRadius: 'var(--radius-sm)',
-                  marginBottom: '16px'
-                }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "var(--space-2) var(--space-3)",
+                    backgroundColor: "var(--bg-tertiary)",
+                    border: "1px solid var(--border-primary)",
+                    borderRadius: "var(--radius-sm)",
+                    marginBottom: "16px",
+                  }}
+                >
                   <div>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                    <div
+                      style={{
+                        fontSize: "0.65rem",
+                        color: "var(--text-secondary)",
+                        textTransform: "uppercase",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
                       Ориентировочный бюджет
                     </div>
-                    <div style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                    <div
+                      style={{
+                        fontSize: "1.35rem",
+                        fontWeight: 700,
+                        color: "var(--text-primary)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
                       ${estimatedPrice.toLocaleString()}
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ textAlign: "right" }}>
+                    <div
+                      style={{
+                        fontSize: "0.65rem",
+                        color: "var(--text-secondary)",
+                        textTransform: "uppercase",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
                       Срок реализации
                     </div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                    <div
+                      style={{
+                        fontSize: "1.2rem",
+                        fontWeight: 600,
+                        color: "var(--text-primary)",
+                        fontFamily: "var(--font-mono)",
+                      }}
+                    >
                       ~{estimatedTime} дней
                     </div>
                   </div>
@@ -807,653 +1326,1121 @@ export default function Services() {
                 <button
                   onClick={handleOrderClick}
                   className="btn btn-primary"
-                  style={{ width: '100%', gap: '8px', fontSize: '0.85rem' }}
+                  style={{ width: "100%", gap: "8px", fontSize: "0.85rem" }}
                 >
                   Оформить заявку на проект <ArrowRight size={14} />
                 </button>
-
               </div>
             </div>
 
-          {/* RIGHT: Live interactive simulator console */}
-          <div style={{
-            backgroundColor: 'var(--bg-darker)',
-            border: '1px dashed var(--border-primary)',
-            borderRadius: 'var(--radius-md)',
-            padding: 'var(--space-4)',
-            display: 'flex',
-            flexDirection: 'column',
-            position: 'relative',
-            overflow: 'hidden'
-          }} className="animate-fade-in service-simulator-container">
-            
-            {/* Top Bar Decoration */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid var(--border-dim)',
-              paddingBottom: '12px',
-              marginBottom: '16px'
-            }}>
-              <div style={{ display: 'flex', gap: '6px' }}>
-                <span style={{ width: '8px', height: '8px', backgroundColor: '#ef4444', borderRadius: '50%' }} />
-                <span style={{ width: '8px', height: '8px', backgroundColor: '#f59e0b', borderRadius: '50%' }} />
-                <span style={{ width: '8px', height: '8px', backgroundColor: '#10b981', borderRadius: '50%' }} />
+            {/* RIGHT: Live interactive simulator console */}
+            <div
+              style={{
+                backgroundColor: "var(--bg-darker)",
+                border: "1px dashed var(--border-primary)",
+                borderRadius: "var(--radius-md)",
+                padding: "var(--space-4)",
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
+                overflow: "hidden",
+              }}
+              className="animate-fade-in service-simulator-container"
+            >
+              {/* Top Bar Decoration */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid var(--border-dim)",
+                  paddingBottom: "12px",
+                  marginBottom: "16px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "6px" }}>
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#ef4444",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#f59e0b",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      backgroundColor: "#10b981",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.7rem",
+                    color: "var(--text-secondary)",
+                  }}
+                >
+                  CONSOLE // {activeTab.toUpperCase()}_SIMULATOR.EXE
+                </div>
               </div>
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.7rem',
-                color: 'var(--text-secondary)'
-              }}>
-                CONSOLE // {activeTab.toUpperCase()}_SIMULATOR.EXE
-              </div>
-            </div>
 
-            {/* Render simulators according to tab */}
-            {activeTab === 'websites' && (
-              <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    backgroundColor: 'var(--bg-secondary)',
-                    borderRadius: '4px',
-                    padding: '6px 12px',
-                    border: '1px solid var(--border-primary)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    color: 'var(--text-secondary)',
-                    marginBottom: '20px'
-                  }}>
-                    <span style={{ color: 'var(--success)', marginRight: '6px' }}>HTTPS://</span>
-                    <span>webhub.tech/audit/client-performance</span>
+              {/* Render simulators according to tab */}
+              {activeTab === "websites" && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        backgroundColor: "var(--bg-secondary)",
+                        borderRadius: "4px",
+                        padding: "6px 12px",
+                        border: "1px solid var(--border-primary)",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.75rem",
+                        color: "var(--text-secondary)",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <span
+                        style={{ color: "var(--success)", marginRight: "6px" }}
+                      >
+                        HTTPS://
+                      </span>
+                      <span>webhub.tech/audit/client-performance</span>
+                    </div>
+
+                    <p
+                      style={{
+                        fontSize: "0.8rem",
+                        color: "var(--text-secondary)",
+                        textAlign: "left",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      Запустите аудит Google Lighthouse, чтобы оценить
+                      производительность нашей кодовой базы на продакшене.
+                    </p>
+
+                    {/* Lighthouse Gauges */}
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(4, 1fr)",
+                        gap: "12px",
+                        marginBottom: "24px",
+                      }}
+                    >
+                      {[
+                        {
+                          key: "perf",
+                          label: "Speed",
+                          color: "var(--success)",
+                        },
+                        { key: "seo", label: "SEO", color: "var(--success)" },
+                        {
+                          key: "bp",
+                          label: "Practices",
+                          color: "var(--success)",
+                        },
+                        {
+                          key: "access",
+                          label: "Access",
+                          color: "var(--success)",
+                        },
+                      ].map((gauge) => (
+                        <div
+                          key={gauge.key}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "64px",
+                              height: "64px",
+                              borderRadius: "50%",
+                              border: `3px solid var(--border-primary)`,
+                              position: "relative",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "1rem",
+                              fontWeight: "bold",
+                              color:
+                                lhScores[gauge.key] > 0
+                                  ? gauge.color
+                                  : "var(--text-muted)",
+                              boxShadow:
+                                lhScores[gauge.key] > 0
+                                  ? `0 0 10px rgba(16, 185, 129, 0.1)`
+                                  : "none",
+                              transition: "all 0.3s ease",
+                            }}
+                          >
+                            {lhScores[gauge.key] || 0}
+                          </div>
+                          <span
+                            style={{
+                              fontSize: "0.65rem",
+                              color: "var(--text-secondary)",
+                              marginTop: "6px",
+                              fontFamily: "var(--font-heading)",
+                            }}
+                          >
+                            {gauge.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'left', marginBottom: '20px' }}>
-                    Запустите аудит Google Lighthouse, чтобы оценить производительность нашей кодовой базы на продакшене.
-                  </p>
-
-                  {/* Lighthouse Gauges */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '12px',
-                    marginBottom: '24px'
-                  }}>
-                    {[
-                      { key: 'perf', label: 'Speed', color: 'var(--success)' },
-                      { key: 'seo', label: 'SEO', color: 'var(--success)' },
-                      { key: 'bp', label: 'Practices', color: 'var(--success)' },
-                      { key: 'access', label: 'Access', color: 'var(--success)' }
-                    ].map((gauge) => (
-                      <div key={gauge.key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <div style={{
-                          width: '64px',
-                          height: '64px',
-                          borderRadius: '50%',
-                          border: `3px solid var(--border-primary)`,
-                          position: 'relative',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '1rem',
-                          fontWeight: 'bold',
-                          color: lhScores[gauge.key] > 0 ? gauge.color : 'var(--text-muted)',
-                          boxShadow: lhScores[gauge.key] > 0 ? `0 0 10px rgba(16, 185, 129, 0.1)` : 'none',
-                          transition: 'all 0.3s ease'
-                        }}>
-                          {lhScores[gauge.key] || 0}
+                  {/* Console Log area */}
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div
+                      style={{
+                        backgroundColor: "var(--bg-secondary)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "4px",
+                        height: "100px",
+                        padding: "8px",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.65rem",
+                        textAlign: "left",
+                        color: "var(--text-primary)",
+                        overflowY: "auto",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      {lhLogs.length === 0 ? (
+                        <div style={{ color: "var(--text-muted)" }}>
+                          [Стенд готов к тестированию. Нажмите кнопку ниже]
                         </div>
-                        <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', marginTop: '6px', fontFamily: 'var(--font-heading)' }}>
-                          {gauge.label}
-                        </span>
-                      </div>
-                    ))}
+                      ) : (
+                        lhLogs.map((log, idx) => <div key={idx}>{log}</div>)
+                      )}
+                    </div>
+
+                    <button
+                      onClick={runLighthouseTest}
+                      disabled={lhTesting}
+                      className="btn btn-secondary"
+                      style={{
+                        width: "100%",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.75rem",
+                        gap: "8px",
+                      }}
+                    >
+                      <Play size={12} />{" "}
+                      {lhTesting
+                        ? "Сканирование..."
+                        : "Запустить тест скорости"}
+                    </button>
                   </div>
                 </div>
+              )}
 
-                {/* Console Log area */}
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    height: '100px',
-                    padding: '8px',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.65rem',
-                    textAlign: 'left',
-                    color: 'var(--text-primary)',
-                    overflowY: 'auto',
-                    marginBottom: '12px'
-                  }}>
-                    {lhLogs.length === 0 ? (
-                      <div style={{ color: 'var(--text-muted)' }}>[Стенд готов к тестированию. Нажмите кнопку ниже]</div>
+              {/* activeTab === 'mobile' */}
+              {activeTab === "mobile" && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        backgroundColor: "var(--bg-secondary)",
+                        borderRadius: "4px",
+                        padding: "8px 12px",
+                        border: "1px solid var(--border-primary)",
+                        marginBottom: "16px",
+                      }}
+                    >
+                      <div style={{ textAlign: "left" }}>
+                        <div
+                          style={{
+                            fontSize: "0.65rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          SERVER STATUS
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--success)",
+                            fontWeight: 600,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px",
+                          }}
+                        >
+                          <span className="pulse-indicator" /> ONLINE (99.99%)
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "center" }}>
+                        <div
+                          style={{
+                            fontSize: "0.65rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          RPS
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.85rem",
+                            color: "var(--text-primary)",
+                            fontFamily: "var(--font-mono)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {loadRps.toLocaleString()}
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <div
+                          style={{
+                            fontSize: "0.65rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          LATENCY
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.85rem",
+                            color: "var(--success)",
+                            fontFamily: "var(--font-mono)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {loadLatency}ms
+                        </div>
+                      </div>
+                    </div>
+
+                    <p
+                      style={{
+                        fontSize: "0.8rem",
+                        color: "var(--text-secondary)",
+                        textAlign: "left",
+                        marginBottom: "16px",
+                      }}
+                    >
+                      Сэмулируйте пиковую нагрузку крупной распродажи, чтобы
+                      проверить масштабируемость бэкенд-кластера.
+                    </p>
+
+                    {/* RPS Load History Micro-Chart */}
+                    <div
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.3)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "4px",
+                        padding: "8px",
+                        marginBottom: "12px",
+                        textAlign: "left",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "0.55rem",
+                          color: "var(--text-muted)",
+                          fontFamily: "var(--font-mono)",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        <span>ИСТОРИЯ НАГРУЗКИ (RPS)</span>
+                        <span
+                          style={{
+                            color: loadSimulating
+                              ? "var(--success)"
+                              : "var(--text-muted)",
+                          }}
+                        >
+                          {loadSimulating
+                            ? "МАСШТАБИРОВАНИЕ КЛАСТЕРА ACTIVE"
+                            : "ОЖИДАНИЕ ТРАФИКА"}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-end",
+                          height: "40px",
+                          gap: "3px",
+                        }}
+                      >
+                        {loadHistory.map((val, idx) => {
+                          const maxVal = 20000;
+                          const heightPct = Math.min((val / maxVal) * 100, 100);
+                          return (
+                            <div
+                              key={idx}
+                              style={{
+                                flex: 1,
+                                height: `${Math.max(heightPct, 8)}%`,
+                                backgroundColor: loadSimulating
+                                  ? "var(--success)"
+                                  : "var(--border-primary)",
+                                borderRadius: "1px",
+                                transition:
+                                  "height 0.3s ease, background-color 0.3s ease",
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Order feed */}
+                    <div
+                      style={{
+                        backgroundColor: "var(--bg-secondary)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "4px",
+                        padding: "8px",
+                        minHeight: "130px",
+                        textAlign: "left",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.65rem",
+                        color: "var(--text-secondary)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          borderBottom: "1px solid var(--border-dim)",
+                          paddingBottom: "4px",
+                          marginBottom: "6px",
+                          color: "var(--text-primary)",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Входящие транзакции:
+                      </div>
+                      {loadOrders.length === 0 ? (
+                        <div
+                          style={{
+                            color: "var(--text-muted)",
+                            padding: "12px 0",
+                            textAlign: "center",
+                          }}
+                        >
+                          Ожидание трафика... Нажмите кнопку симуляции.
+                        </div>
+                      ) : (
+                        loadOrders.map((ord) => (
+                          <div
+                            key={ord.id}
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              marginBottom: "4px",
+                              animation: "fadeIn 0.2s ease-out",
+                            }}
+                          >
+                            <span>
+                              [{ord.time}] {ord.item}
+                            </span>
+                            <span style={{ color: "var(--success)" }}>
+                              +${ord.price} ({ord.gateway})
+                            </span>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setLoadSimulating(!loadSimulating)}
+                    className="btn"
+                    style={{
+                      width: "100%",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.75rem",
+                      backgroundColor: loadSimulating
+                        ? "#ef4444"
+                        : "var(--success)",
+                      color: "white",
+                      gap: "6px",
+                      marginTop: "12px",
+                    }}
+                  >
+                    {loadSimulating ? (
+                      <>
+                        <RotateCcw size={12} /> Остановить симуляцию нагрузки
+                      </>
                     ) : (
-                      lhLogs.map((log, idx) => <div key={idx}>{log}</div>)
+                      <>
+                        <Activity size={12} /> Симулировать «Черную Пятницу»
+                        (18K RPS)
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* activeTab === 'erp' */}
+              {activeTab === "erp" && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ textAlign: "left" }}>
+                    {/* Finances dashboard info */}
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gap: "8px",
+                        backgroundColor: "var(--bg-secondary)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "4px",
+                        padding: "8px",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      <div>
+                        <div
+                          style={{
+                            fontSize: "0.6rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          ПРИХОД
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.8rem",
+                            color: "var(--success)",
+                            fontFamily: "var(--font-mono)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          +${erpIncome}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          style={{
+                            fontSize: "0.6rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          РАСХОД
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.8rem",
+                            color: "#ef4444",
+                            fontFamily: "var(--font-mono)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          -${erpExpense}
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          style={{
+                            fontSize: "0.6rem",
+                            color: "var(--text-muted)",
+                            fontFamily: "var(--font-mono)",
+                          }}
+                        >
+                          ЧИСТАЯ ПРИБЫЛЬ
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.8rem",
+                            color: "var(--text-primary)",
+                            fontFamily: "var(--font-mono)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          ${erpProfit}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Financial Trend SVG Graph */}
+                    {(() => {
+                      const erpGraphPoints = (() => {
+                        let balance = 5000;
+                        const points = [balance];
+                        erpTransactions.forEach((t) => {
+                          balance =
+                            t.type === "income"
+                              ? balance + t.amount
+                              : balance - t.amount;
+                          points.push(balance);
+                        });
+                        return points;
+                      })();
+
+                      const erpMax = Math.max(...erpGraphPoints, 8000);
+                      const erpMin = Math.min(...erpGraphPoints, 2000);
+                      const erpRange = erpMax - erpMin || 1;
+                      const erpSvgWidth = 320;
+                      const erpSvgHeight = 45;
+                      const erpSvgPoints = erpGraphPoints
+                        .map((val, idx) => {
+                          const x =
+                            (idx / (erpGraphPoints.length - 1)) * erpSvgWidth;
+                          const y =
+                            erpSvgHeight -
+                            6 -
+                            ((val - erpMin) / erpRange) * (erpSvgHeight - 12);
+                          return `${x},${y}`;
+                        })
+                        .join(" ");
+
+                      return (
+                        <div
+                          style={{
+                            backgroundColor: "rgba(0,0,0,0.3)",
+                            border: "1px solid var(--border-primary)",
+                            borderRadius: "4px",
+                            padding: "6px",
+                            marginBottom: "10px",
+                            position: "relative",
+                            overflow: "hidden",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              fontSize: "0.55rem",
+                              color: "var(--text-muted)",
+                              fontFamily: "var(--font-mono)",
+                              marginBottom: "4px",
+                            }}
+                          >
+                            <span>ФИНАНСОВЫЙ ГРАФИК (ТРЕНД БАЛАНСА)</span>
+                            <span style={{ color: "var(--success)" }}>
+                              $
+                              {erpGraphPoints[
+                                erpGraphPoints.length - 1
+                              ].toLocaleString()}
+                            </span>
+                          </div>
+                          <svg
+                            width="100%"
+                            height={erpSvgHeight}
+                            viewBox={`0 0 ${erpSvgWidth} ${erpSvgHeight}`}
+                            preserveAspectRatio="none"
+                          >
+                            <defs>
+                              <linearGradient
+                                id="erpGrad"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                              >
+                                <stop
+                                  offset="0%"
+                                  stopColor="var(--success)"
+                                  stopOpacity="0.25"
+                                />
+                                <stop
+                                  offset="100%"
+                                  stopColor="var(--success)"
+                                  stopOpacity="0"
+                                />
+                              </linearGradient>
+                            </defs>
+                            <path
+                              d={
+                                `M 0,${erpSvgHeight} L 0,${erpSvgHeight - 6 - ((erpGraphPoints[0] - erpMin) / erpRange) * (erpSvgHeight - 12)} ` +
+                                erpGraphPoints
+                                  .map((val, idx) => {
+                                    const x =
+                                      (idx / (erpGraphPoints.length - 1)) *
+                                      erpSvgWidth;
+                                    const y =
+                                      erpSvgHeight -
+                                      6 -
+                                      ((val - erpMin) / erpRange) *
+                                        (erpSvgHeight - 12);
+                                    return `L ${x},${y}`;
+                                  })
+                                  .join(" ") +
+                                ` L ${erpSvgWidth},${erpSvgHeight} Z`
+                              }
+                              fill="url(#erpGrad)"
+                            />
+                            <polyline
+                              fill="none"
+                              stroke="var(--success)"
+                              strokeWidth="1.5"
+                              points={erpSvgPoints}
+                            />
+                            {erpGraphPoints.map((val, idx) => {
+                              const x =
+                                (idx / (erpGraphPoints.length - 1)) *
+                                erpSvgWidth;
+                              const y =
+                                erpSvgHeight -
+                                6 -
+                                ((val - erpMin) / erpRange) *
+                                  (erpSvgHeight - 12);
+                              return (
+                                <circle
+                                  key={idx}
+                                  cx={x}
+                                  cy={y}
+                                  r="2.5"
+                                  fill="var(--bg-primary)"
+                                  stroke="var(--success)"
+                                  strokeWidth="1"
+                                />
+                              );
+                            })}
+                          </svg>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Interactive form to add tx */}
+                    <form
+                      onSubmit={handleAddErpTransaction}
+                      style={{
+                        display: "flex",
+                        gap: "4px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <input
+                        type="text"
+                        placeholder="Откат / Статья"
+                        required
+                        value={erpNewName}
+                        onChange={(e) => setErpNewName(e.target.value)}
+                        style={{
+                          fontSize: "0.7rem",
+                          padding: "4px 6px",
+                          flex: 2,
+                        }}
+                      />
+                      <input
+                        type="number"
+                        placeholder="Сумма $"
+                        required
+                        value={erpNewAmount}
+                        onChange={(e) => setErpNewAmount(e.target.value)}
+                        style={{
+                          fontSize: "0.7rem",
+                          padding: "4px 6px",
+                          flex: 1.2,
+                        }}
+                      />
+                      <select
+                        value={erpNewType}
+                        onChange={(e) => setErpNewType(e.target.value)}
+                        style={{
+                          fontSize: "0.7rem",
+                          padding: "4px 4px",
+                          flex: 1,
+                        }}
+                      >
+                        <option value="income">+</option>
+                        <option value="expense">-</option>
+                      </select>
+                      <button
+                        type="submit"
+                        style={{
+                          backgroundColor: "var(--text-primary)",
+                          border: "none",
+                          color: "var(--bg-primary)",
+                          padding: "0 8px",
+                          borderRadius: "4px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Plus size={12} />
+                      </button>
+                    </form>
+
+                    {/* Transaction ledger list */}
+                    <div
+                      style={{
+                        backgroundColor: "var(--bg-secondary)",
+                        border: "1px solid var(--border-primary)",
+                        borderRadius: "4px",
+                        maxHeight: "110px",
+                        overflowY: "auto",
+                        padding: "6px",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.65rem",
+                      }}
+                    >
+                      {erpTransactions.map((tx) => (
+                        <div
+                          key={tx.id}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            padding: "4px 0",
+                            borderBottom: "1px solid var(--border-dim)",
+                          }}
+                        >
+                          <span
+                            style={{
+                              textOverflow: "ellipsis",
+                              overflow: "hidden",
+                              whiteSpace: "nowrap",
+                              maxWidth: "140px",
+                            }}
+                          >
+                            {tx.title}
+                          </span>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                            }}
+                          >
+                            <span
+                              style={{
+                                color:
+                                  tx.type === "income"
+                                    ? "var(--success)"
+                                    : "#ef4444",
+                              }}
+                            >
+                              {tx.type === "income" ? "+" : "-"}${tx.amount}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteErpTx(tx.id)}
+                              style={{
+                                background: "transparent",
+                                border: "none",
+                                color: "var(--text-muted)",
+                                cursor: "pointer",
+                                padding: "2px",
+                              }}
+                              onMouseEnter={(e) =>
+                                (e.currentTarget.style.color = "#ef4444")
+                              }
+                              onMouseLeave={(e) =>
+                                (e.currentTarget.style.color =
+                                  "var(--text-muted)")
+                              }
+                            >
+                              <Trash2 size={10} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      fontSize: "0.65rem",
+                      fontFamily: "var(--font-mono)",
+                      color: "var(--text-muted)",
+                      marginTop: "10px",
+                      textAlign: "left",
+                      borderTop: "1px solid var(--border-dim)",
+                      paddingTop: "8px",
+                    }}
+                  >
+                    * Симулятор демонстрирует мгновенную синхронизацию базы
+                    данных PostgreSQL с визуальным рендером баланса.
+                  </div>
+                </div>
+              )}
+
+              {/* activeTab === 'backend' */}
+              {activeTab === "backend" && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        backgroundColor: "var(--bg-secondary)",
+                        borderRadius: "4px",
+                        padding: "8px 12px",
+                        border: "1px solid var(--border-primary)",
+                        marginBottom: "14px",
+                      }}
+                    >
+                      <div style={{ textAlign: "left" }}>
+                        <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                          THROUGHPUT
+                        </div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--success)", fontFamily: "var(--font-mono)", fontWeight: 600 }}>
+                          12,400 QPS
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "center" }}>
+                        <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                          LATENCY (p99)
+                        </div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--success)", fontFamily: "var(--font-mono)", fontWeight: 600 }}>
+                          8.4ms
+                        </div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <div style={{ fontSize: "0.6rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                          CACHE HIT
+                        </div>
+                        <div style={{ fontSize: "0.8rem", color: "var(--text-primary)", fontFamily: "var(--font-mono)", fontWeight: 600 }}>
+                          98.4%
+                        </div>
+                      </div>
+                    </div>
+
+                    <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textAlign: "left", marginBottom: "12px" }}>
+                      Стековая микросервисная сеть Go (Golang) + gRPC & Redis. Запустите нагрузочный бенчмарк API:
+                    </p>
+
+                    {/* Endpoints Table */}
+                    <div style={{ backgroundColor: "rgba(0,0,0,0.3)", border: "1px solid var(--border-primary)", borderRadius: "4px", padding: "6px 8px", marginBottom: "12px", fontFamily: "var(--font-mono)", fontSize: "0.65rem", textAlign: "left" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-dim)", paddingBottom: "4px", marginBottom: "4px", color: "var(--text-muted)" }}>
+                        <span>МИКРОСЕРВИС</span>
+                        <span>ПРОТОКОЛ</span>
+                        <span>LATENCY</span>
+                      </div>
+                      {[
+                        { name: "POST /api/v1/auth/jwt", proto: "REST (HTTP/2)", lat: "4ms", color: "var(--success)" },
+                        { name: "GET /api/v1/products/stream", proto: "gRPC Streaming", lat: "2ms", color: "var(--success)" },
+                        { name: "REDIS.Get(user_session)", proto: "TCP In-Memory", lat: "0.4ms", color: "var(--success)" },
+                        { name: "POST /api/v1/payment/checkout", proto: "REST SSL", lat: "14ms", color: "var(--success)" },
+                      ].map((ep, idx) => (
+                        <div key={idx} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: idx < 3 ? "1px solid var(--border-dim)" : "none" }}>
+                          <span style={{ color: "var(--text-primary)" }}>{ep.name}</span>
+                          <span style={{ color: "var(--text-secondary)" }}>{ep.proto}</span>
+                          <span style={{ color: ep.color, fontWeight: "bold" }}>{ep.lat}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Backend Logs */}
+                    <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "4px", height: "85px", padding: "6px", overflowY: "auto", fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--text-secondary)", textAlign: "left" }}>
+                      {backendLogs.length === 0 ? (
+                        <div style={{ color: "var(--text-muted)", padding: "10px 0", textAlign: "center" }}>
+                          [Нажмите кнопку ниже для старта бенчмарка API]
+                        </div>
+                      ) : (
+                        backendLogs.map((log, idx) => <div key={idx} style={{ marginBottom: "2px" }}>{log}</div>)
+                      )}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={runBackendBenchmark}
+                    disabled={backendBenchmarking}
+                    className="btn btn-secondary"
+                    style={{ width: "100%", fontFamily: "var(--font-mono)", fontSize: "0.75rem", gap: "8px", marginTop: "10px" }}
+                  >
+                    <Play size={12} /> {backendBenchmarking ? "Тестирование API..." : "Запустить бенчмарк API (12.4K QPS)"}
+                  </button>
+                </div>
+              )}
+
+              {/* activeTab === 'ai' */}
+              {activeTab === "ai" && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    {/* Scenario Switcher */}
+                    <div style={{ display: "flex", gap: "4px", marginBottom: "12px" }}>
+                      {[
+                        { id: "document", label: "OCR Документы", icon: FileText },
+                        { id: "chatbot", label: "Бот WhatsApp", icon: Bot },
+                        { id: "routing", label: "Лид-трекинг", icon: Rocket },
+                      ].map((sc) => {
+                        const Icon = sc.icon;
+                        return (
+                          <button
+                            key={sc.id}
+                            onClick={() => setAiScenario(sc.id)}
+                            style={{
+                              flex: 1,
+                              padding: "4px 2px",
+                              fontSize: "0.65rem",
+                              fontFamily: "var(--font-mono)",
+                              backgroundColor: aiScenario === sc.id ? "var(--text-primary)" : "var(--bg-secondary)",
+                              color: aiScenario === sc.id ? "var(--bg-primary)" : "var(--text-secondary)",
+                              border: "1px solid var(--border-primary)",
+                              borderRadius: "3px",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Icon size={11} />
+                            <span>{sc.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textAlign: "left", marginBottom: "10px" }}>
+                      Интеграция нейросетей OpenAI GPT-4o & ChromaDB Vector RAG. Симуляция интеллектуального агента:
+                    </p>
+
+                    {/* AI Reasoning Log */}
+                    <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "4px", height: "80px", padding: "6px", overflowY: "auto", fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--text-secondary)", textAlign: "left", marginBottom: "10px" }}>
+                      {aiLogs.length === 0 ? (
+                        <div style={{ color: "var(--text-muted)", padding: "10px 0", textAlign: "center" }}>
+                          [Выберите сценарий и нажмите "Запустить AI-ассистента"]
+                        </div>
+                      ) : (
+                        aiLogs.map((log, idx) => <div key={idx} style={{ marginBottom: "2px" }}>{log}</div>)
+                      )}
+                    </div>
+
+                    {/* AI Result Card */}
+                    {aiResult && (
+                      <div style={{ backgroundColor: "rgba(16, 185, 129, 0.08)", border: "1px solid var(--success)", borderRadius: "4px", padding: "8px", fontFamily: "var(--font-mono)", fontSize: "0.65rem", textAlign: "left", animation: "fadeIn 0.2s ease-out" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid var(--border-dim)", paddingBottom: "4px", marginBottom: "4px" }}>
+                          <span style={{ color: "var(--success)", fontWeight: "bold" }}>AI RESULT JSON [SUCCESS]</span>
+                          <span style={{ color: "var(--text-muted)" }}>CONFIDENCE: {aiResult.confidence || "99%"}</span>
+                        </div>
+                        <pre style={{ margin: 0, fontSize: "0.6rem", color: "var(--text-primary)", whiteSpace: "pre-wrap" }}>
+                          {JSON.stringify(aiResult, null, 2)}
+                        </pre>
+                      </div>
                     )}
                   </div>
 
                   <button
-                    onClick={runLighthouseTest}
-                    disabled={lhTesting}
+                    onClick={runAiSimulation}
+                    disabled={aiRunning}
                     className="btn btn-secondary"
-                    style={{
-                      width: '100%',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      gap: '8px'
-                    }}
+                    style={{ width: "100%", fontFamily: "var(--font-mono)", fontSize: "0.75rem", gap: "8px", marginTop: "10px" }}
                   >
-                    <Play size={12} /> {lhTesting ? 'Сканирование...' : 'Запустить тест скорости'}
+                    <Bot size={12} /> {aiRunning ? "Обработка нейросетью..." : "Запустить AI-ассистента"}
                   </button>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* activeTab === 'marketplaces' */}
-            {activeTab === 'marketplaces' && (
-              <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    backgroundColor: 'var(--bg-secondary)',
-                    borderRadius: '4px',
-                    padding: '8px 12px',
-                    border: '1px solid var(--border-primary)',
-                    marginBottom: '16px'
-                  }}>
-                    <div style={{ textAlign: 'left' }}>
-                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>SERVER STATUS</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--success)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <span className="pulse-indicator" /> ONLINE (99.99%)
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>RPS</div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        {loadRps.toLocaleString()}
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>LATENCY</div>
-                      <div style={{ fontSize: '0.85rem', color: 'var(--success)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        {loadLatency}ms
-                      </div>
-                    </div>
-                  </div>
-
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'left', marginBottom: '16px' }}>
-                    Сэмулируйте пиковую нагрузку крупной распродажи, чтобы проверить масштабируемость бэкенд-кластера.
-                  </p>
-
-                  {/* RPS Load History Micro-Chart */}
-                  <div style={{
-                    backgroundColor: 'rgba(0,0,0,0.3)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    padding: '8px',
-                    marginBottom: '12px',
-                    textAlign: 'left'
-                  }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.55rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '6px' }}>
-                      <span>ИСТОРИЯ НАГРУЗКИ (RPS)</span>
-                      <span style={{ color: loadSimulating ? 'var(--success)' : 'var(--text-muted)' }}>
-                        {loadSimulating ? 'МАСШТАБИРОВАНИЕ КЛАСТЕРА ACTIVE' : 'ОЖИДАНИЕ ТРАФИКА'}
-                      </span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'flex-end', height: '40px', gap: '3px' }}>
-                      {loadHistory.map((val, idx) => {
-                        const maxVal = 20000;
-                        const heightPct = Math.min((val / maxVal) * 100, 100);
-                        return (
-                          <div key={idx} style={{
-                            flex: 1,
-                            height: `${Math.max(heightPct, 8)}%`,
-                            backgroundColor: loadSimulating ? 'var(--success)' : 'var(--border-primary)',
-                            borderRadius: '1px',
-                            transition: 'height 0.3s ease, background-color 0.3s ease'
-                          }} />
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Order feed */}
-                  <div style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    padding: '8px',
-                    minHeight: '130px',
-                    textAlign: 'left',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.65rem',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    <div style={{ borderBottom: '1px solid var(--border-dim)', paddingBottom: '4px', marginBottom: '6px', color: 'var(--text-primary)', fontWeight: 'bold' }}>
-                      Входящие транзакции:
-                    </div>
-                    {loadOrders.length === 0 ? (
-                      <div style={{ color: 'var(--text-muted)', padding: '12px 0', textAlign: 'center' }}>
-                        Ожидание трафика... Нажмите кнопку симуляции.
-                      </div>
-                    ) : (
-                      loadOrders.map((ord) => (
-                        <div key={ord.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', animation: 'fadeIn 0.2s ease-out' }}>
-                          <span>[{ord.time}] {ord.item}</span>
-                          <span style={{ color: 'var(--success)' }}>+${ord.price} ({ord.gateway})</span>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => setLoadSimulating(!loadSimulating)}
-                  className="btn"
+              {/* activeTab === 'support' */}
+              {activeTab === "support" && (
+                <div
                   style={{
-                    width: '100%',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    backgroundColor: loadSimulating ? '#ef4444' : 'var(--success)',
-                    color: 'white',
-                    gap: '6px',
-                    marginTop: '12px'
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
                   }}
                 >
-                  {loadSimulating ? (
-                    <>
-                      <RotateCcw size={12} /> Остановить симуляцию нагрузки
-                    </>
-                  ) : (
-                    <>
-                      <Activity size={12} /> Симулировать «Черную Пятницу» (18K RPS)
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
-
-            {/* activeTab === 'erp' */}
-            {activeTab === 'erp' && (
-              <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
-                <div style={{ textAlign: 'left' }}>
-                  
-                  {/* Finances dashboard info */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '8px',
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    padding: '8px',
-                    marginBottom: '12px'
-                  }}>
-                    <div>
-                      <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>ПРИХОД</div>
-                      <div style={{ fontSize: '0.8rem', color: 'var(--success)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        +${erpIncome}
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>РАСХОД</div>
-                      <div style={{ fontSize: '0.8rem', color: '#ef4444', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        -${erpExpense}
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>ЧИСТАЯ ПРИБЫЛЬ</div>
-                      <div style={{ fontSize: '0.8rem', color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                        ${erpProfit}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Financial Trend SVG Graph */}
-                  {(() => {
-                    const erpGraphPoints = (() => {
-                      let balance = 5000;
-                      const points = [balance];
-                      erpTransactions.forEach((t) => {
-                        balance = t.type === 'income' ? balance + t.amount : balance - t.amount;
-                        points.push(balance);
-                      });
-                      return points;
-                    })();
-
-                    const erpMax = Math.max(...erpGraphPoints, 8000);
-                    const erpMin = Math.min(...erpGraphPoints, 2000);
-                    const erpRange = erpMax - erpMin || 1;
-                    const erpSvgWidth = 320;
-                    const erpSvgHeight = 45;
-                    const erpSvgPoints = erpGraphPoints.map((val, idx) => {
-                      const x = (idx / (erpGraphPoints.length - 1)) * erpSvgWidth;
-                      const y = erpSvgHeight - 6 - ((val - erpMin) / erpRange) * (erpSvgHeight - 12);
-                      return `${x},${y}`;
-                    }).join(' ');
-
-                    return (
-                      <div style={{
-                        backgroundColor: 'rgba(0,0,0,0.3)',
-                        border: '1px solid var(--border-primary)',
-                        borderRadius: '4px',
-                        padding: '6px',
-                        marginBottom: '10px',
-                        position: 'relative',
-                        overflow: 'hidden'
-                      }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.55rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '4px' }}>
-                          <span>ФИНАНСОВЫЙ ГРАФИК (ТРЕНД БАЛАНСА)</span>
-                          <span style={{ color: 'var(--success)' }}>${erpGraphPoints[erpGraphPoints.length - 1].toLocaleString()}</span>
-                        </div>
-                        <svg width="100%" height={erpSvgHeight} viewBox={`0 0 ${erpSvgWidth} ${erpSvgHeight}`} preserveAspectRatio="none">
-                          <defs>
-                            <linearGradient id="erpGrad" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="var(--success)" stopOpacity="0.25" />
-                              <stop offset="100%" stopColor="var(--success)" stopOpacity="0" />
-                            </linearGradient>
-                          </defs>
-                          <path
-                            d={`M 0,${erpSvgHeight} L 0,${erpSvgHeight - 6 - ((erpGraphPoints[0] - erpMin) / erpRange) * (erpSvgHeight - 12)} ` + 
-                               erpGraphPoints.map((val, idx) => {
-                                 const x = (idx / (erpGraphPoints.length - 1)) * erpSvgWidth;
-                                 const y = erpSvgHeight - 6 - ((val - erpMin) / erpRange) * (erpSvgHeight - 12);
-                                 return `L ${x},${y}`;
-                               }).join(' ') + ` L ${erpSvgWidth},${erpSvgHeight} Z`}
-                            fill="url(#erpGrad)"
-                          />
-                          <polyline
-                            fill="none"
-                            stroke="var(--success)"
-                            strokeWidth="1.5"
-                            points={erpSvgPoints}
-                          />
-                          {erpGraphPoints.map((val, idx) => {
-                            const x = (idx / (erpGraphPoints.length - 1)) * erpSvgWidth;
-                            const y = erpSvgHeight - 6 - ((val - erpMin) / erpRange) * (erpSvgHeight - 12);
-                            return (
-                              <circle
-                                key={idx}
-                                cx={x}
-                                cy={y}
-                                r="2.5"
-                                fill="var(--bg-primary)"
-                                stroke="var(--success)"
-                                strokeWidth="1"
-                              />
-                            );
-                          })}
-                        </svg>
-                      </div>
-                    );
-                  })()}
-
-                  {/* Interactive form to add tx */}
-                  <form onSubmit={handleAddErpTransaction} style={{
-                    display: 'flex',
-                    gap: '4px',
-                    marginBottom: '10px'
-                  }}>
-                    <input
-                      type="text"
-                      placeholder="Откат / Статья"
-                      required
-                      value={erpNewName}
-                      onChange={(e) => setErpNewName(e.target.value)}
-                      style={{ fontSize: '0.7rem', padding: '4px 6px', flex: 2 }}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Сумма $"
-                      required
-                      value={erpNewAmount}
-                      onChange={(e) => setErpNewAmount(e.target.value)}
-                      style={{ fontSize: '0.7rem', padding: '4px 6px', flex: 1.2 }}
-                    />
-                    <select
-                      value={erpNewType}
-                      onChange={(e) => setErpNewType(e.target.value)}
-                      style={{ fontSize: '0.7rem', padding: '4px 4px', flex: 1 }}
-                    >
-                      <option value="income">+</option>
-                      <option value="expense">-</option>
-                    </select>
-                    <button type="submit" style={{
-                      backgroundColor: 'var(--text-primary)',
-                      border: 'none',
-                      color: 'var(--bg-primary)',
-                      padding: '0 8px',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}>
-                      <Plus size={12} />
-                    </button>
-                  </form>
-
-                  {/* Transaction ledger list */}
-                  <div style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    maxHeight: '110px',
-                    overflowY: 'auto',
-                    padding: '6px',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.65rem'
-                  }}>
-                    {erpTransactions.map((tx) => (
-                      <div key={tx.id} style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '4px 0',
-                        borderBottom: '1px solid var(--border-dim)'
-                      }}>
-                        <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '140px' }}>
-                          {tx.title}
-                        </span>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ color: tx.type === 'income' ? 'var(--success)' : '#ef4444' }}>
-                            {tx.type === 'income' ? '+' : '-'}${tx.amount}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteErpTx(tx.id)}
-                            style={{
-                              background: 'transparent',
-                              border: 'none',
-                              color: 'var(--text-muted)',
-                              cursor: 'pointer',
-                              padding: '2px'
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = '#ef4444'}
-                            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
-                          >
-                            <Trash2 size={10} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                </div>
-
-                <div style={{
-                  fontSize: '0.65rem',
-                  fontFamily: 'var(--font-mono)',
-                  color: 'var(--text-muted)',
-                  marginTop: '10px',
-                  textAlign: 'left',
-                  borderTop: '1px solid var(--border-dim)',
-                  paddingTop: '8px'
-                }}>
-                  * Симулятор демонстрирует мгновенную синхронизацию базы данных PostgreSQL с визуальным рендером баланса.
-                </div>
-              </div>
-            )}
-
-            {/* activeTab === 'crm' */}
-            {activeTab === 'crm' && (
-              <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
-                {crmToast && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '48px',
-                    left: '12px',
-                    right: '12px',
-                    backgroundColor: 'var(--success)',
-                    color: 'var(--bg-primary)',
-                    padding: '8px 12px',
-                    borderRadius: '4px',
-                    fontSize: '0.65rem',
-                    fontWeight: 'bold',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    zIndex: 10,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-                    transition: 'all 0.3s ease'
-                  }}>
-                    <CheckCircle2 size={12} /> {crmToast}
-                  </div>
-                )}
-                <div>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'left', marginBottom: '12px' }}>
-                    Управляйте воронкой продаж. Кликайте стрелки на сделках для перевода их по этапам.
-                  </p>
-
-                  {/* Kanban Columns */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '6px',
-                    marginBottom: '12px'
-                  }}>
-                    {['lead', 'progress', 'done'].map((stage) => {
-                      const stageLabels = { lead: 'ЛИДЫ', progress: 'В РАБОТЕ', done: 'УСПЕШНЫЕ' };
-                      const stageColors = { lead: 'var(--text-secondary)', progress: '#f59e0b', done: 'var(--success)' };
-                      
-                      return (
-                        <div key={stage} style={{
-                          backgroundColor: 'var(--bg-secondary)',
-                          border: '1px solid var(--border-primary)',
-                          borderRadius: '4px',
-                          padding: '6px 4px',
-                          minHeight: '130px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '6px'
-                        }}>
-                          <div style={{
-                            fontSize: '0.6rem',
-                            fontWeight: 'bold',
-                            fontFamily: 'var(--font-heading)',
-                            color: stageColors[stage],
-                            borderBottom: '1px solid var(--border-dim)',
-                            paddingBottom: '2px',
-                            marginBottom: '2px'
-                          }}>
-                            {stageLabels[stage]}
+                  <div>
+                    {/* Server Nodes Grid */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "6px", marginBottom: "10px" }}>
+                      {supportNodes.map((node, idx) => (
+                        <div key={idx} style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "4px", padding: "6px 8px", textAlign: "left" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.6rem", fontWeight: "bold", color: "var(--text-primary)", marginBottom: "3px" }}>
+                            <span>{node.name}</span>
+                            <span style={{ color: "var(--success)" }}>{node.status}</span>
                           </div>
-
-                          {crmDeals.filter(d => d.stage === stage).map((deal) => (
-                            <div key={deal.id} style={{
-                              backgroundColor: 'var(--bg-tertiary)',
-                              border: '1px solid var(--border-primary)',
-                              borderRadius: '3px',
-                              padding: '4px 6px',
-                              textAlign: 'left'
-                            }}>
-                              <div style={{ fontWeight: 600, fontSize: '0.65rem', color: 'var(--text-primary)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                                {deal.client}
-                              </div>
-                              <div style={{ fontSize: '0.55rem', color: 'var(--text-muted)' }}>
-                                {deal.title}
-                              </div>
-                              <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginTop: '4px'
-                              }}>
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--success)' }}>
-                                  ${deal.value}
-                                </span>
-                                <div style={{ display: 'flex', gap: '2px' }}>
-                                  {stage !== 'lead' && (
-                                    <button
-                                      onClick={() => moveCrmDeal(deal.id, -1)}
-                                      style={{ padding: '0 3px', fontSize: '0.55rem', cursor: 'pointer', background: 'var(--bg-secondary)', color: 'white', border: '1px solid var(--border-primary)', borderRadius: '2px' }}
-                                    >
-                                      {"<"}
-                                    </button>
-                                  )}
-                                  {stage !== 'done' && (
-                                    <button
-                                      onClick={() => moveCrmDeal(deal.id, 1)}
-                                      style={{ padding: '0 3px', fontSize: '0.55rem', cursor: 'pointer', background: 'var(--bg-secondary)', color: 'white', border: '1px solid var(--border-primary)', borderRadius: '2px' }}
-                                    >
-                                      {">"}
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.55rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                            <span>Ping: <strong style={{ color: "var(--text-primary)" }}>{node.ping}ms</strong></span>
+                            <span>CPU: <strong style={{ color: "var(--text-primary)" }}>{node.cpu}%</strong></span>
+                            <span>RAM: <strong style={{ color: "var(--text-primary)" }}>{node.ram}%</strong></span>
+                          </div>
                         </div>
-                      );
-                    })}
+                      ))}
+                    </div>
+
+                    <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textAlign: "left", marginBottom: "10px" }}>
+                      24/7 DevOps мониторинг, автоматическое масштабирование и резервные бэкапы:
+                    </p>
+
+                    {/* Support Logs */}
+                    <div style={{ backgroundColor: "var(--bg-secondary)", border: "1px solid var(--border-primary)", borderRadius: "4px", height: "90px", padding: "6px", overflowY: "auto", fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--text-secondary)", textAlign: "left" }}>
+                      {supportLogs.length === 0 ? (
+                        <div style={{ color: "var(--text-muted)", padding: "12px 0", textAlign: "center" }}>
+                          [Все системы работают корректно. SLA 99.99%]
+                        </div>
+                      ) : (
+                        supportLogs.map((log, idx) => <div key={idx} style={{ marginBottom: "2px" }}>{log}</div>)
+                      )}
+                    </div>
                   </div>
+
+                  <button
+                    onClick={runSupportCheck}
+                    disabled={supportTesting}
+                    className="btn btn-secondary"
+                    style={{ width: "100%", fontFamily: "var(--font-mono)", fontSize: "0.75rem", gap: "8px", marginTop: "10px" }}
+                  >
+                    <ShieldCheck size={12} /> {supportTesting ? "Проверка кластера..." : "Проверить инциденты & SLA 99.99%"}
+                  </button>
                 </div>
-
-                {/* Log Feed */}
-                <div>
-                  <div style={{
-                    fontSize: '0.6rem',
-                    fontFamily: 'var(--font-mono)',
-                    color: 'var(--text-muted)',
-                    textAlign: 'left',
-                    marginBottom: '4px'
-                  }}>
-                    ЛОГ ТРИГГЕРОВ АВТОМАТИЗАЦИИ:
-                  </div>
-                  <div style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-primary)',
-                    borderRadius: '4px',
-                    padding: '6px',
-                    height: '52px',
-                    overflowY: 'auto',
-                    textAlign: 'left',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.55rem',
-                    color: 'var(--text-secondary)'
-                  }}>
-                    {crmLogs.map((log, idx) => (
-                      <div key={idx} style={{ marginBottom: '2px', color: idx === 0 ? 'var(--text-primary)' : 'var(--text-muted)' }}>
-                        {log}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-            )}
-
+              )}
+            </div>
           </div>
-
         </div>
-
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }

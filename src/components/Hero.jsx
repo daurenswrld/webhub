@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function Hero() {
   const [hoveredPoint, setHoveredPoint] = useState(null);
@@ -20,7 +20,7 @@ export default function Hero() {
         x: padding + c * stepX,
         y: padding + r * stepY,
         r: r,
-        c: c
+        c: c,
       });
     }
   }
@@ -41,7 +41,7 @@ export default function Hero() {
         ...pt,
         dx: pt.x - Math.cos(angle) * force,
         dy: pt.y - Math.sin(angle) * force,
-        dist
+        dist,
       };
     }
     return { ...pt, dx: pt.x, dy: pt.y, dist };
@@ -72,7 +72,15 @@ export default function Hero() {
       <div className="container hero-layout">
         <div className="hero-content animate-fade-in">
           <div className="hero-tagline">
-            <span style={{ display: 'inline-block', width: '6px', height: '6px', backgroundColor: 'var(--text-primary)', borderRadius: '50%' }}></span>
+            <span
+              style={{
+                display: "inline-block",
+                width: "6px",
+                height: "6px",
+                backgroundColor: "var(--text-primary)",
+                borderRadius: "50%",
+              }}
+            ></span>
             <span>WEBHUB // DIGITAL PRODUCT STUDIO</span>
           </div>
           <h1 className="hero-title">
@@ -80,24 +88,33 @@ export default function Hero() {
             готового продукта
           </h1>
           <p className="hero-description">
-            Разрабатываем сайты, веб-приложения и мобильные приложения, которые помогают вашему бизнесу расти, автоматизировать процессы и запускать новые возможности.
+            Разрабатываем сайты, веб-приложения и мобильные приложения, которые
+            помогают вашему бизнесу расти, автоматизировать процессы и запускать
+            новые возможности.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="btn btn-primary">Связаться с нами</a>
-            <a href="#services" className="btn btn-secondary">Наши решения</a>
+            <a href="#contact" className="btn btn-primary">
+              Связаться с нами
+            </a>
+            <a href="#services" className="btn btn-secondary">
+              Экспертиза
+            </a>
           </div>
         </div>
 
-        <div className="hero-visual animate-fade-in" style={{ animationDelay: '0.15s' }}>
-          <svg 
-            className="tech-grid-art" 
+        <div
+          className="hero-visual animate-fade-in"
+          style={{ animationDelay: "0.15s" }}
+        >
+          <svg
+            className="tech-grid-art"
             viewBox={`0 0 ${size} ${size}`}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{ cursor: 'none' }}
+            style={{ cursor: "none" }}
           >
             {/* Draw dynamic grid lines */}
-            {Array.from({ length: rows }).map((_, r) => (
+            {Array.from({ length: rows }).map((_, r) =>
               Array.from({ length: columns - 1 }).map((_, c) => {
                 const p1 = dynamicPoints[r * columns + c];
                 const p2 = dynamicPoints[r * columns + (c + 1)];
@@ -110,12 +127,16 @@ export default function Hero() {
                     y2={p2.dy}
                     stroke="var(--hero-grid-line)"
                     strokeWidth="1"
-                    style={{ transition: mousePos ? 'none' : 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                    style={{
+                      transition: mousePos
+                        ? "none"
+                        : "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                    }}
                   />
                 );
-              })
-            ))}
-            {Array.from({ length: columns }).map((_, c) => (
+              }),
+            )}
+            {Array.from({ length: columns }).map((_, c) =>
               Array.from({ length: rows - 1 }).map((_, r) => {
                 const p1 = dynamicPoints[r * columns + c];
                 const p2 = dynamicPoints[(r + 1) * columns + c];
@@ -128,11 +149,15 @@ export default function Hero() {
                     y2={p2.dy}
                     stroke="var(--hero-grid-line)"
                     strokeWidth="1"
-                    style={{ transition: mousePos ? 'none' : 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                    style={{
+                      transition: mousePos
+                        ? "none"
+                        : "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                    }}
                   />
                 );
-              })
-            ))}
+              }),
+            )}
 
             {/* Dynamic decorative vector shape */}
             {(() => {
@@ -146,26 +171,31 @@ export default function Hero() {
                   stroke="var(--hero-grid-dashed)"
                   strokeWidth="1.5"
                   strokeDasharray="4 4"
-                  style={{ transition: mousePos ? 'none' : 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)' }}
+                  style={{
+                    transition: mousePos
+                      ? "none"
+                      : "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
                 />
               );
             })()}
 
             {/* Holographic connections to cursor */}
-            {mousePos && activeConnections.map((conn) => (
-              <line
-                key={`conn-${conn.id}`}
-                x1={mousePos.x}
-                y1={mousePos.y}
-                x2={conn.dx}
-                y2={conn.dy}
-                stroke="var(--success)"
-                strokeWidth="0.75"
-                strokeDasharray="2 2"
-                opacity={1 - conn.dist / 75}
-                style={{ transition: 'none' }}
-              />
-            ))}
+            {mousePos &&
+              activeConnections.map((conn) => (
+                <line
+                  key={`conn-${conn.id}`}
+                  x1={mousePos.x}
+                  y1={mousePos.y}
+                  x2={conn.dx}
+                  y2={conn.dy}
+                  stroke="var(--success)"
+                  strokeWidth="0.75"
+                  strokeDasharray="2 2"
+                  opacity={1 - conn.dist / 75}
+                  style={{ transition: "none" }}
+                />
+              ))}
 
             {/* Grid nodes */}
             {dynamicPoints.map((pt) => {
@@ -181,9 +211,17 @@ export default function Hero() {
                   cx={pt.dx}
                   cy={pt.dy}
                   r={radius}
-                  fill={isHovered ? 'var(--text-primary)' : isNearby ? 'var(--success)' : 'var(--hero-grid-node)'}
+                  fill={
+                    isHovered
+                      ? "var(--text-primary)"
+                      : isNearby
+                        ? "var(--success)"
+                        : "var(--hero-grid-node)"
+                  }
                   style={{
-                    transition: mousePos ? 'r 0.15s ease-out, fill 0.15s ease-out' : 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: mousePos
+                      ? "r 0.15s ease-out, fill 0.15s ease-out"
+                      : "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
                   onMouseEnter={() => setHoveredPoint(pt.id)}
                   onMouseLeave={() => setHoveredPoint(null)}
@@ -198,13 +236,15 @@ export default function Hero() {
                 cy={mousePos.y}
                 r="3"
                 fill="var(--success)"
-                style={{ transition: 'none' }}
+                style={{ transition: "none" }}
               />
             )}
 
             {/* Interactive metadata display */}
             {mousePos ? (
-              <g transform={`translate(${padding + 5}, ${size - padding + 10})`}>
+              <g
+                transform={`translate(${padding + 5}, ${size - padding + 10})`}
+              >
                 <rect
                   x="0"
                   y="-16"
@@ -222,11 +262,14 @@ export default function Hero() {
                   fontSize="8"
                   fontFamily="var(--font-mono)"
                 >
-                  X:{Math.round(mousePos.x)} Y:{Math.round(mousePos.y)} // SYS_ACTIVE
+                  X:{Math.round(mousePos.x)} Y:{Math.round(mousePos.y)} //
+                  SYS_ACTIVE
                 </text>
               </g>
             ) : hoveredPoint ? (
-              <g transform={`translate(${padding + 5}, ${size - padding + 10})`}>
+              <g
+                transform={`translate(${padding + 5}, ${size - padding + 10})`}
+              >
                 <rect
                   x="0"
                   y="-16"
@@ -244,7 +287,8 @@ export default function Hero() {
                   fontSize="8"
                   fontFamily="var(--font-mono)"
                 >
-                  NODE_ID: {hoveredPoint} // C:{hoveredPoint.split('-')[1]} R:{hoveredPoint.split('-')[0]}
+                  NODE_ID: {hoveredPoint} // C:{hoveredPoint.split("-")[1]} R:
+                  {hoveredPoint.split("-")[0]}
                 </text>
               </g>
             ) : null}
